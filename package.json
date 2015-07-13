@@ -1,0 +1,33 @@
+{
+  "name": "random-world",
+  "version": "1.0.0",
+  "description": "Module to generate random collections of data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drb/random-world.git"
+  },
+  "keywords": [
+    "npm",
+    "random",
+    "random-data"
+  ],
+  "author": "Dave Bullough <dave.bullough@gmail.com> (http://pacosystems.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drb/random-world/issues"
+  },
+  "homepage": "https://github.com/drb/random-world",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "grunt": "^0.4.5",
+    "grunt-simple-mocha": "^0.4.0",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}
