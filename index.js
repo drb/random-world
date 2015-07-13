@@ -20,8 +20,8 @@ var randomWorldFactory = (function () {
             string = { 
             "type": "collection",
             "struct": {
-                "title":  "$sentence",
-                "title1":  "$fullName",
+                "title":  "$sentence and another $signature{foo: 1}",
+                "title1":  "$fullName{f:9} $foobarbaz $yay{foo: true}",
                 "id": "$integer",
                 "firsname": "$foreName",
                 "name": "Hello my name is $foreName{daveEnabled:1} and I am $integer years old, also this: $title{foo: 1}."
@@ -31,22 +31,12 @@ var randomWorldFactory = (function () {
 
         tokenize = function (str) {
 
-            var re = /\$([a-zA-Z0-9]+)(\{([a-zA-Z0-9\:\ ]+)\})?/g,
-                tokens = str.match(re);
+            var re = /\$([a-zA-Z0-9]+)(\{([a-zA-Z0-9\:\ ]+)\})?/g;
 
-            _.each(tokens, function(match){
-
-                var key = match, 
-                    options = key.match(/\{([a-zA-Z0-9\:\ ]+)\}/);
-
-                if (options) {
-                    console.log(match, options);
-                }       
-                //console.log(match, options);
-            });
-            
-            
-            console.log('-----------------------')
+            while ((match = re.exec(str)) != null) {
+                console.log("match found at ", match);//+ match.index, match.input);
+                // console.log('-----------------------')
+            }
 
             return str;
         };
