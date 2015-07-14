@@ -12,58 +12,93 @@ var randomWorldFactory = (function () {
         libFilter   = '.js', 
         libPath     = './lib',
         libraries   = fs.readdirSync(path.normalize(libPath));
+
+
+    tokenize = function (key, struct) {
+
+        var str             = _.clone(struct[key]),
+            re              = /\$([a-zA-Z0-9]+)(\{([a-zA-Z0-9\,\\\"\:\ ]+)\})?/g,
+            tokenizedValue  = str,
+            tag, 
+            options;
+
+        //console.log("testing source", str);
+        //console.log("--------------------------------------");
+
+
+        while ((match = re.exec(str)) !== null) {
+
+            // console.log("match found at ", match[0]);//+ match.index, match.input);
+
+            options     = {};
+            tag         = match[1] || false;
+        
+            // is there an options group?
+            if (match[2]) {
+                
+                try {
+                    options = JSON.parse(match[2]);
+                } catch (e) { 
+                    console.error('cant parse', match[2], e); 
+                }
+
+            }
+
+            try {
+                // console.log(signature.multiply({value: 10, factor: 10}));
+                tokenizedValue = tokenizedValue.replace(match[0], signature[tag](options));
+                // console.log("after", str);
+            } catch (e) { 
+                console.error(e); 
+            }
+            
+        }
+
+        return tokenizedValue;
+    };
     
 
-    signature.fromMock = function () {
+    signature.fromMock = function (mock) {
 
-        var mock,
-            string = { 
-            "type": "collection",
-            "struct": {
-                "title":  "$sentence and another $signature{foo: 1}",
-                "title1":  "$fullName{f:9} $foobarbaz $yay{foo: true}",
-                "id": "$integer",
-                "firsname": "$foreName",
-                "name": "Hello my name is $foreName{daveEnabled:1} and I am $integer years old, also this: $title{foo: 1}."
-            }
-        };
+        var output, 
+            pagination;
 
+        // console.log(this);
+            
+        if (!_.isObject(mock)) {
+            try {
+                mock = JSON.parse(mock);   
+            } catch (ignore) {}
+        }
 
-        tokenize = function (str) {
+        switch (mock.type) {
 
-            var re = /\$([a-zA-Z0-9]+)(\{([a-zA-Z0-9\:\ ]+)\})?/g;
+            // single object
+            case 'object':
+                output = {};
+                _.keys(mock.struct).forEach(function(key) {
+                    output[key] = tokenize(key, mock.struct);
+                });
+                break;
 
-            while ((match = re.exec(str)) != null) {
-                console.log("match found at ", match);//+ match.index, match.input);
-                // console.log('-----------------------')
-            }
-
-            return str;
-        };
-
-
-        switch (string.type) {
+            // collection of objects
             case 'collection':
-                var struct = string.struct;
-                    
-                mock = [];
-
-                for (var i = 0; i < 1; i++) {
+                output = [];
+                pagination = mock.pagination;
+                for (var i = 0; i < pagination.limit; i++) {
                     data = {};
-                    _.keys(struct).forEach(function(key) {
-                        data[key] = tokenize(struct[key]);
+                    _.keys(mock.struct).forEach(function(key) {
+                        data[key] = tokenize(key, mock.struct);
                     });
-                    mock.push(data);
+                    output.push(data);
                 }
                 break;
         }
 
-        // console.log(mock);
-
-        return mock;
+        return output;
     };
 
-    signature.fromMock();
+    
 
     /**
      * collate the libs and add them to the factory output
@@ -87,10 +122,24 @@ var randomWorldFactory = (function () {
     function register(lib) {
 
         var moduleName  = path.basename(lib, libFilter),
-            instance    = require(path.resolve(libPath, lib)); 
+            instance    = require(path.resolve(libPath, lib));
 
         _.extend(signature, instance);
     }
+
+    var string = { 
+        "type": "collection",
+        "pagination": {
+            "limit": 12
+        },
+        "struct": {
+            "firstName": "$firstname{\"gender\":\"male\"}",
+            "lastName": "$lastname",
+            "age": "$integer"
+        }
+    };
+
+    console.log(JSON.stringify(signature.fromMock(string), null, "\t"));
 
     return signature;
 
