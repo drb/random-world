@@ -22,13 +22,7 @@ var randomWorldFactory = (function () {
             tag, 
             options;
 
-        //console.log("testing source", str);
-        //console.log("--------------------------------------");
-
-
         while ((match = re.exec(str)) !== null) {
-
-            // console.log("match found at ", match[0]);//+ match.index, match.input);
 
             options     = {};
             tag         = match[1] || false;
@@ -41,13 +35,10 @@ var randomWorldFactory = (function () {
                 } catch (e) { 
                     console.error('cant parse', match[2], e); 
                 }
-
             }
 
             try {
-                // console.log(signature.multiply({value: 10, factor: 10}));
                 tokenizedValue = tokenizedValue.replace(match[0], signature[tag](options));
-                // console.log("after", str);
             } catch (e) { 
                 console.error(e); 
             }
@@ -126,20 +117,6 @@ var randomWorldFactory = (function () {
 
         _.extend(signature, instance);
     }
-
-    var string = { 
-        "type": "collection",
-        "pagination": {
-            "limit": 12
-        },
-        "struct": {
-            "firstName": "$firstname{\"gender\":\"male\"}",
-            "lastName": "$lastname",
-            "age": "$integer"
-        }
-    };
-
-    console.log(JSON.stringify(signature.fromMock(string), null, "\t"));
 
     return signature;
 
