@@ -36,7 +36,7 @@ var randomWorldFactory = (function () {
 
         while ((match = re.exec(str)) !== null) {
 
-            // is the reference locked using $$? this allows the same keyword to be written across the same string instance
+            // is the reference locked using $$? this allows the same keyword to be written across the same string instance or object
             refLocked   = match[1].length > 1;
             tag         = match[2] || false;
             options     = {};
@@ -74,12 +74,15 @@ var randomWorldFactory = (function () {
     signature.fromMock = function (mock) {
 
         var output, 
-            pagination;
+            pagination,
+            refs = {};
             
         if (!_.isObject(mock)) {
             try {
                 mock = JSON.parse(mock);   
-            } catch (ignore) {}
+            } catch (e) {
+                throw ("The mock data provided was not parseable. Is it valid JSON?");
+            }
         }
 
         // return data is either a single object or a collection of objects
@@ -89,13 +92,14 @@ var randomWorldFactory = (function () {
             case 'object':
                 output = {};
                 _.keys(mock.struct).forEach(function(key) {
-                    output[key] = tokenize(key, mock.struct).tokenizedValue;
+                    var token = tokenize(key, mock.struct, refs);
+                    output[key] = token.tokenizedValue;
+                    refs = token.refs;
                 });
                 break;
 
             // collection of objects
             case 'collection':
-                refs        = {};
                 output      = [];
                 pagination  = mock.pagination;
 
