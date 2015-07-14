@@ -9,9 +9,14 @@ var randomWorldFactory = (function () {
         _           = require('underscore'), 
         fs          = require('fs'), 
         path        = require('path'),
+        seedrandom  = require('seedrandom'),
         libFilter   = '.js', 
         libPath     = path.resolve(path.join(__dirname, 'lib')),
         libraries   = fs.readdirSync(path.normalize(libPath));
+
+    rng = seedrandom('iamateapot', { entropy: true });
+
+    //console.log(rng());
 
     /**
      * tokenize
@@ -28,22 +33,23 @@ var randomWorldFactory = (function () {
         var str             = _.clone(struct[key]),
             tokenizedValue  = str,
             re              = /(\$+)([a-zA-Z0-9]+)(\{([a-zA-Z0-9\,\\\"\:\ ]+)\})?/g,
+            refs            = lockedRefs || {},
             tag, 
             refLocked, 
             libOut,
-            options,
-            refs = lockedRefs || {};
+            options;
 
         while ((match = re.exec(str)) !== null) {
 
-            // is the reference locked using $$? this allows the same keyword to be written across the same string instance or object
+            // is the reference locked using $$? 
+            // this allows the same keyword to be written across the same string 
+            // instance or object
             refLocked   = match[1].length > 1;
             tag         = match[2] || false;
             options     = {};
         
             // is there an options group?
             if (match[3]) {
-                
                 try {
                     options = JSON.parse(match[3]);
                 } catch (ignore) {}
@@ -61,7 +67,6 @@ var randomWorldFactory = (function () {
             } catch (e) { 
                 console.error(e); 
             }
-            
         }
 
         return {
