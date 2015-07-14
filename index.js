@@ -10,42 +10,64 @@ var randomWorldFactory = (function () {
         fs          = require('fs'), 
         path        = require('path'),
         libFilter   = '.js', 
-        libPath     = './lib',
+        libPath     = path.resolve(path.join(__dirname, 'lib')),
         libraries   = fs.readdirSync(path.normalize(libPath));
 
-
-    tokenize = function (key, struct) {
+    /**
+     * tokenize
+     * 
+     * takes a value from mock string and replaces all instances of data placeholders with  
+     * the applicable method (passing in any data)
+     * 
+     * @param  {[type]} key    [description]
+     * @param  {[type]} struct [description]
+     * @return {[type]}        [description]
+     */
+    tokenize = function (key, struct, lockedRefs) {
 
         var str             = _.clone(struct[key]),
-            re              = /\$([a-zA-Z0-9]+)(\{([a-zA-Z0-9\,\\\"\:\ ]+)\})?/g,
             tokenizedValue  = str,
+            re              = /(\$+)([a-zA-Z0-9]+)(\{([a-zA-Z0-9\,\\\"\:\ ]+)\})?/g,
             tag, 
-            options;
+            refLocked, 
+            libOut,
+            options,
+            refs = lockedRefs || {};
 
         while ((match = re.exec(str)) !== null) {
 
+            // is the reference locked using $$? this allows the same keyword to be written across the same string instance
+            refLocked   = match[1].length > 1;
+            tag         = match[2] || false;
             options     = {};
-            tag         = match[1] || false;
         
             // is there an options group?
-            if (match[2]) {
+            if (match[3]) {
                 
                 try {
-                    options = JSON.parse(match[2]);
-                } catch (e) { 
-                    console.error('cant parse', match[2], e); 
-                }
+                    options = JSON.parse(match[3]);
+                } catch (ignore) {}
             }
 
             try {
-                tokenizedValue = tokenizedValue.replace(match[0], signature[tag](options));
+                if (refLocked && _.has(refs, tag)) {
+                    libOut = refs[tag];
+                } else {
+                    libOut = signature[tag](options);
+                    refs[tag] = libOut;
+                }
+                
+                tokenizedValue = tokenizedValue.replace(match[0], libOut);
             } catch (e) { 
                 console.error(e); 
             }
             
         }
 
-        return tokenizedValue;
+        return {
+            tokenizedValue: tokenizedValue,
+            refs: refs
+        };
     };
     
 
@@ -53,8 +75,6 @@ var randomWorldFactory = (function () {
 
         var output, 
             pagination;
-
-        // console.log(this);
             
         if (!_.isObject(mock)) {
             try {
@@ -62,24 +82,30 @@ var randomWorldFactory = (function () {
             } catch (ignore) {}
         }
 
+        // return data is either a single object or a collection of objects
         switch (mock.type) {
 
             // single object
             case 'object':
                 output = {};
                 _.keys(mock.struct).forEach(function(key) {
-                    output[key] = tokenize(key, mock.struct);
+                    output[key] = tokenize(key, mock.struct).tokenizedValue;
                 });
                 break;
 
             // collection of objects
             case 'collection':
-                output = [];
-                pagination = mock.pagination;
+                refs        = {};
+                output      = [];
+                pagination  = mock.pagination;
+
+                // get a paginated set of data
                 for (var i = 0; i < pagination.limit; i++) {
                     data = {};
                     _.keys(mock.struct).forEach(function(key) {
-                        data[key] = tokenize(key, mock.struct);
+                        var token = tokenize(key, mock.struct, refs);
+                        data[key] = token.tokenizedValue;
+                        refs = token.refs;
                     });
                     output.push(data);
                 }
@@ -90,7 +116,6 @@ var randomWorldFactory = (function () {
     };
 
     
-
     /**
      * collate the libs and add them to the factory output
      * 

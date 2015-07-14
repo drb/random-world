@@ -34,8 +34,9 @@ describe('Mocking server tests:', function() {
                 "limit": 12
             },
             "struct": {
-                "firstName": "$firstname{\"gender\":\"male\"}",
-                "lastName": "$lastname",
+                "firstName": "$firstname{\"gender\":\"female\"}",
+                "lastName": "$lastname{\"startsWith\": \"Bu\"}",
+                "introduction": "My last name is $$lastname, but my maiden name is $lastname.",
                 "age": "$integer"
             }
         };

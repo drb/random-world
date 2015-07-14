@@ -1,7 +1,7 @@
 {
   "name": "random-world",
   "version": "1.0.0",
-  "description": "Module to generate random collections of data.",
+  "description": "Nodejs. module to generate random collections of data.",
   "main": "index.js",
   "scripts": {
     "test": "grunt"
@@ -16,7 +16,7 @@
     "random-data"
   ],
   "author": "Dave Bullough <dave.bullough@gmail.com> (http://pacosystems.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/drb/random-world/issues"
   },
