@@ -31,7 +31,7 @@ var randomWorldFactory = (function () {
 
         var str             = _.clone(struct[key]),
             tokenizedValue  = str,
-            re              = /(\$+)([a-zA-Z0-9]+)(\{([a-zA-Z0-9\,\\\"\:\ ]+)\})?/g,
+            re              = /(\$+)([a-zA-Z0-9]+)(\{([a-zA-Z0-9\/\-\,\\\"\:\ ]+)\})?/g,
             refs            = lockedRefs || {},
             tag, 
             refLocked, 
