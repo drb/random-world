@@ -21,4 +21,11 @@ describe('String tests:', function() {
                 .to.have.length(20);
         });
     }); 
+
+    describe('word()', function () {
+        it('should return a random word', function () {
+            expect(random.word())
+                .to.be.a('string');
+        });
+    }); 
 });

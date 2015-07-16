@@ -27,7 +27,8 @@ describe('Mocking server tests:', function() {
                     },
                     "struct": {
                         "name": "$block{\"blockSize\": 444} is a company name $firstname.",
-                        "companyAge": "$integer"    
+                        "companyAge": "$integer",
+                        "website": "http://www.$word{\"delimiter\":\"-\", \"limit\": 2}.com"
                     }
                 },
                 "statuses": {
