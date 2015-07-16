@@ -2,7 +2,7 @@ var expect = require('chai').expect,
     random = require('../index');
 
 /**
- * name tests
+ * mock tests
  * 
  * @return {[type]}   [description]
  */
@@ -68,7 +68,7 @@ describe('Mocking server tests:', function() {
                         "limits": 10
                     },
                     "struct": {
-                        "name": "$block{\"blockSize\": 444} is a company name $firstname.",
+                        "name": "$block{\"blockSize\": 136} is a company name $firstname.",
                         "companyAge": "$integer"    
                     }
                 },
@@ -77,7 +77,7 @@ describe('Mocking server tests:', function() {
                         "limits": 2
                     },
                     "struct": {
-                        "name": "$block{\"blockSize\": 444}"
+                        "name": "$block{\"blockSize\": 345}"
                     }
                 }
             }
