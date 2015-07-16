@@ -49,7 +49,8 @@ var randomWorldFactory = (function () {
             // instance or object
             refLocked   = match[1].length > 1;
             tag         = match[2] || false;
-            options     = {};
+            options     = {},
+            startTime = 0; 
 
             // is there an options group?
             if (match[3]) {
@@ -65,7 +66,9 @@ var randomWorldFactory = (function () {
                 if (refLocked && _.has(refs, tag)) {
                     libOut = refs[tag];
                 } else {
+                    //startTime = new Date().getTime();
                     libOut = signature[tag](options);
+                    //console.log(tag, options, (new Date().getTime() - startTime) / 1000);
                     refs[tag] = libOut;
                 }
 
