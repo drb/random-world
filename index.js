@@ -49,8 +49,7 @@ var randomWorldFactory = (function () {
             // instance or object
             refLocked   = match[1].length > 1;
             tag         = match[2] || false;
-            options     = {},
-            startTime = 0; 
+            options     = {};
 
             // is there an options group?
             if (match[3]) {
@@ -66,9 +65,7 @@ var randomWorldFactory = (function () {
                 if (refLocked && _.has(refs, tag)) {
                     libOut = refs[tag];
                 } else {
-                    //startTime = new Date().getTime();
                     libOut = signature[tag](options);
-                    //console.log(tag, options, (new Date().getTime() - startTime) / 1000);
                     refs[tag] = libOut;
                 }
 
@@ -81,9 +78,27 @@ var randomWorldFactory = (function () {
             }
         }
 
+        // this is a bit of a fudge to attempt to keep the return values as their native types, otherwise they
+        // end up being converted to strings
+        try {
+            if (tag === 'integer' && _.isNumber(+tokenizedValue) && !_.isNaN(tokenizedValue)) {
+               tokenizedValue = parseInt(tokenizedValue);
+            } 
+            if (tag === 'array') {
+                tokenizedValue = tokenizedValue.split(',').map(function(item){
+                    if (_.isNumber(+tokenizedValue) && !_.isNaN(tokenizedValue)) {
+                        return +item;
+                    }
+                });
+            }   
+        } catch (e) {
+            console.log('failed', e);
+        }
+        
         return {
             tokenizedValue: tokenizedValue,
-            refs: refs
+            refs: refs,
+            tag: tag
         };
     };
 

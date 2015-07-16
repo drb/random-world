@@ -17,7 +17,8 @@ describe('Mocking server tests:', function() {
                 "lastName": "$lastname",
                 "age": "$integer is a nice age to be",
                 "block": "$block",
-                "someArray": [{nativeType: 1}]
+                "someArray": [{nativeType: 1}],
+                "array": "$array"
             },
             "collections": {
                 "companies": {
@@ -45,7 +46,7 @@ describe('Mocking server tests:', function() {
         it('should return an object', function () {
             expect(random.fromMock(obj))
                 .to.be.a('object')
-                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses');
+                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array');
         });
     });
 
@@ -60,7 +61,8 @@ describe('Mocking server tests:', function() {
                 "firstName": "$firstname{\"gender\":\"female\"}",
                 "lastName": "$lastname{\"startsWith\": \"Bu\"}",
                 "introduction": "My last name is $$lastname, but my maiden name is $lastname.",
-                "age": "$integer"
+                "age": "$integer",
+                "array": "$array"
             },
             "collections": {
                 "companies": {
