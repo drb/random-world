@@ -15,20 +15,43 @@ describe('Mocking server tests:', function() {
             "struct": {
                 "firstName": "$firstname{\"gender\":\"male\"}",
                 "lastName": "$lastname",
-                "age": "$integer"
+                "age": "$integer is a nice age to be",
+                "block": "$block",
+                "someArray": [{nativeType: 1}]
+            },
+            "collections": {
+                "companies": {
+                    "pagination": {
+                        "limits": 10
+                    },
+                    "struct": {
+                        "name": "$block{\"blockSize\": 444} is a company name $firstname.",
+                        "companyAge": "$integer"    
+                    }
+                },
+                "statuses": {
+                    "pagination": {
+                        "limits": 2
+                    },
+                    "struct": {
+                        "name": "$block{\"blockSize\": 444}"
+                    }
+                }
             }
         };
+
+        // console.log('json transformed output', random.fromMock(obj));
 
         it('should return an object', function () {
             expect(random.fromMock(obj))
                 .to.be.a('object')
-                .to.have.all.keys('firstName', 'lastName', 'age');
+                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses');
         });
     });
 
     describe('fromMock() paginated collection', function () {
 
-        var collection = { 
+        var obj = { 
             "type": "collection",
             "pagination": {
                 "limit": 12
@@ -38,11 +61,32 @@ describe('Mocking server tests:', function() {
                 "lastName": "$lastname{\"startsWith\": \"Bu\"}",
                 "introduction": "My last name is $$lastname, but my maiden name is $lastname.",
                 "age": "$integer"
+            },
+            "collections": {
+                "companies": {
+                    "pagination": {
+                        "limits": 10
+                    },
+                    "struct": {
+                        "name": "$block{\"blockSize\": 444} is a company name $firstname.",
+                        "companyAge": "$integer"    
+                    }
+                },
+                "statuses": {
+                    "pagination": {
+                        "limits": 2
+                    },
+                    "struct": {
+                        "name": "$block{\"blockSize\": 444}"
+                    }
+                }
             }
         };
 
+        // console.log('json transformed output', random.fromMock(obj));
+
         it('should return a collection that contains 12 objects', function () {
-            expect(random.fromMock(collection))
+            expect(random.fromMock(obj))
                 .to.be.a('array')
                 .to.have.length(12);
         });

@@ -14,9 +14,8 @@ var randomWorldFactory = (function () {
         libPath     = path.resolve(path.join(__dirname, 'lib')),
         libraries   = fs.readdirSync(path.normalize(libPath));
 
+    // use instead of Math.random() to make more random
     rng = seedrandom('iamateapot', { entropy: true });
-
-    //console.log(rng());
 
     /**
      * tokenize
@@ -28,7 +27,7 @@ var randomWorldFactory = (function () {
      * @param  {[type]} struct [description]
      * @return {[type]}        [description]
      */
-    tokenize = function (key, struct, lockedRefs) {
+    tokenize = function (key, struct, lockedRefs, out, nope) {
 
         var str             = _.clone(struct[key]),
             tokenizedValue  = str,
@@ -38,6 +37,10 @@ var randomWorldFactory = (function () {
             refLocked, 
             libOut,
             options;
+        
+        if(nope){
+            return;
+        }
 
         while ((match = re.exec(str)) !== null) {
 
@@ -47,23 +50,29 @@ var randomWorldFactory = (function () {
             refLocked   = match[1].length > 1;
             tag         = match[2] || false;
             options     = {};
-        
+
             // is there an options group?
             if (match[3]) {
                 try {
                     options = JSON.parse(match[3]);
-                } catch (ignore) {}
+                } catch (e) {
+                    console.log(e);
+                }
             }
 
             try {
+
                 if (refLocked && _.has(refs, tag)) {
                     libOut = refs[tag];
                 } else {
                     libOut = signature[tag](options);
                     refs[tag] = libOut;
                 }
-                
-                tokenizedValue = tokenizedValue.replace(match[0], libOut);
+
+                if (match) {
+                    tokenizedValue = tokenizedValue.replace(match[0], libOut);    
+                }
+
             } catch (e) { 
                 console.error(e); 
             }
@@ -74,6 +83,46 @@ var randomWorldFactory = (function () {
             refs: refs
         };
     };
+
+
+    // 
+    signature.collection = function (output, collections) {
+
+        var structCollections       = _.keys(collections),
+            collectionMembers       = [],
+            struct,
+            data,
+            refs,
+            pagination;
+
+        structCollections.forEach(function(collection) {
+            
+            maxMembers        = Math.ceil(rng() * 12); 
+            collectionMembers = [];
+            struct            = _.clone(collections[collection].struct);
+            pagination        =  collections[collection].pagination;
+            data              = {};
+            refs              = {};
+
+            if (pagination && pagination.limit) {
+                maxMembers = pagination.limit;
+            }
+
+            for(var i = 0; i < maxMembers; i++) {
+                refs = {};
+                data = {};
+                _.keys(struct).forEach(function(key) {
+                    var token = tokenize(key, struct, refs);
+                    data[key] = token.tokenizedValue;    
+                    refs = token.refs;
+                });
+
+                collectionMembers.push(data);
+            }
+
+            output[collection] = collectionMembers;
+        });
+    };
     
 
     signature.fromMock = function (mock) {
@@ -81,6 +130,8 @@ var randomWorldFactory = (function () {
         var output, 
             pagination,
             refs = {};
+
+        signature.mockData = mock;
             
         if (!_.isObject(mock)) {
             try {
@@ -98,13 +149,14 @@ var randomWorldFactory = (function () {
                 output = {};
                 _.keys(mock.struct).forEach(function(key) {
                     var token = tokenize(key, mock.struct, refs);
-                    output[key] = token.tokenizedValue;
+                    output[key] = token.tokenizedValue;    
                     refs = token.refs;
                 });
                 break;
 
             // collection of objects
             case 'collection':
+
                 output      = [];
                 pagination  = mock.pagination;
 
@@ -119,6 +171,23 @@ var randomWorldFactory = (function () {
                     output.push(data);
                 }
                 break;
+        }
+
+
+        // any colletions that need to be written to the output are processed here
+        if (mock.collections && !_.isEmpty(mock.collections)) {
+
+            // add collection as properties to the single object
+            if (mock.type === 'object') {
+                this.collection(output, mock.collections);
+            }
+
+            // add collection to every member of the collection
+            if (mock.type === 'collection') {
+                _.each(output, function(out) {
+                    this.collection(out, mock.collections);
+                }, this);
+            }
         }
 
         return output;
