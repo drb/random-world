@@ -14,15 +14,23 @@ describe('Date tests:', function() {
         });
     });
 
-    describe('now() after 10/03/2015', function () {
-        it('should return the time and date after 10/03/2015', function () {
-            expect(random.now({startDate: '10/03/2015'})).to.be.a('date');
+    describe('randomdate() after 10/03/2015', function () {
+        it('should return a random date after 10/03/2015 but before 20/03/2015', function () {
+            expect(random.randomdate({
+                    start: '10/03/2015',
+                    end: '20/03/2015'
+                }))
+                .to.be.a('date')
+                .to.satisfy(function(date) {
+                    return date >= new Date('10 Mar 2015') && date <= new Date('20 Mar 2015');
+                });
         });
     });
 
     describe('unixtimestamp()', function () {
         it('should return a unixtimestamp', function () {
-            expect(random.unixtimestamp()).to.be.a('number');
+            expect(random.unixtimestamp())
+                .to.be.a('number');
         });
     });
 
