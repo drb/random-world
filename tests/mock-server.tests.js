@@ -38,6 +38,13 @@ describe('Mocking server tests:', function() {
                     "struct": {
                         "name": "$block{\"blockSize\": 444}"
                     }
+                },
+                "singleObject": {
+                    "type": "object",
+                    "struct": {
+                        "foo": "$integer",
+                        "name": "$word"
+                    }
                 }
             }
         };
@@ -47,7 +54,7 @@ describe('Mocking server tests:', function() {
         it('should return an object', function () {
             expect(random.fromMock(obj))
                 .to.be.a('object')
-                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array');
+                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject');
         });
     });
 

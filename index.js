@@ -118,7 +118,8 @@ var randomWorldFactory = (function () {
             maxMembers        = Math.ceil(rng() * 12); 
             collectionMembers = [];
             struct            = _.clone(collections[collection].struct);
-            pagination        =  collections[collection].pagination;
+            type              = collections[collection].type; 
+            pagination        = collections[collection].pagination || false;
             data              = {};
             refs              = {};
 
@@ -126,17 +127,26 @@ var randomWorldFactory = (function () {
                 maxMembers = pagination.limit;
             }
 
-            for(var i = 0; i < maxMembers; i++) {
-                refs = {};
-                data = {};
+            if (!type || type === 'collection') {
+                for(var i = 0; i < maxMembers; i++) {
+                    refs = {};
+                    data = {};
+                    _.keys(struct).forEach(function(key) {
+                        var token = tokenize(key, struct, refs);
+                        data[key] = token.tokenizedValue;    
+                        refs = token.refs;
+                    });
+
+                    collectionMembers.push(data);
+                }
+            } else if (type === 'object') {
+                collectionMembers = {};
                 _.keys(struct).forEach(function(key) {
                     var token = tokenize(key, struct, refs);
-                    data[key] = token.tokenizedValue;    
+                    collectionMembers[key] = token.tokenizedValue;    
                     refs = token.refs;
                 });
-
-                collectionMembers.push(data);
-            }
+            };
 
             output[collection] = collectionMembers;
         });
@@ -179,7 +189,7 @@ var randomWorldFactory = (function () {
                 pagination  = mock.pagination;
 
                 if (!pagination) {
-                    throw 'Cannot define a collection without a pagination object';
+                    throw 'Cannot define a collection without a pagination object being set.';
                 }
 
                 // get a paginated set of data
