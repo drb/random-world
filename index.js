@@ -178,6 +178,10 @@ var randomWorldFactory = (function () {
                 output      = [];
                 pagination  = mock.pagination;
 
+                if (!pagination) {
+                    throw 'Cannot define a collection without a pagination object';
+                }
+
                 // get a paginated set of data
                 for (var i = 0; i < pagination.limit; i++) {
                     data = {};
