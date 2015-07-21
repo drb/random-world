@@ -66,4 +66,35 @@ describe('Name tests:', function() {
                 .to.have.string('Bu');
         });
     }); 
+
+
+    describe('email', function () {
+        it('should return an email address', function () {
+            // console.log(random.email({hasDot: true, 'charcase': 'upper', 'startsWith': 'bu'}));
+            expect(random.email())
+                .to.be.a('string')
+                .to.have.string('@');
+        });
+    }); 
+
+    describe('email', function () {
+        it('should return an email address with names starting Bu and uppercase', function () {
+            expect(random.email({hasDot: true, 'charcase': 'upper', 'startsWith': 'bu'}))
+                .to.be.a('string')
+                .to.match(/[A-Z]+$/)
+                .to.have.string('@');
+        });
+    }); 
+
+    describe('email', function () {
+        it('should return a lowercase email address with a plus address included', function () {
+            var address = random.email({hasDot: true, 'charcase': 'lower', hasPlusAddress: true, standard: false});
+            // console.log(address);
+            expect(address)
+                .to.be.a('string')
+                .to.match(/[a-z]+$/)
+                .to.have.string('@')
+                .to.have.string('+');
+        });
+    }); 
 });
