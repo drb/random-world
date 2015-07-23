@@ -22,4 +22,25 @@ describe('Number tests:', function() {
                 });
         });
     });
+
+    describe('getRange()', function () {
+        it('should return a random range of 9 numbers that sum to 101', function () {
+            var options = {
+                    max: 101,
+                    count: 9
+                },
+                sum = random.sum(options);
+
+            expect(sum)
+                .to.be.a('array')
+                .to.have.length(options.count)
+                .to.satisfy(function(arr) {
+                    var sum = 0;
+                    for (var j = 0; j < arr.length; j++) {
+                        sum += arr[j];
+                    }
+                    return sum === options.max;
+                });
+        });
+    });
 });
