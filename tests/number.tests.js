@@ -13,4 +13,13 @@ describe('Number tests:', function() {
             	.to.be.a('number');
         });
     });
+
+    describe('getFloat()', function () {
+        it('should return a floating point number', function () {
+            expect(random.float())
+            	.to.satisfy(function(fl) {
+                    return fl % 1 !== 0;
+                });
+        });
+    });
 });

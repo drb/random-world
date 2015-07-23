@@ -21,4 +21,20 @@ describe('Network tests:', function() {
         });
     });
 
+    describe('ip()', function () {
+        it('should return a random ip', function () {
+            var ip = random.ip();
+            expect(ip).to.be.a('string');
+        });
+    });
+
+    describe('ip()', function () {
+        it('should return a random ip with a mask', function () {
+            var ip = random.ip({mask: true});
+            expect(ip)
+                .to.be.a('string')
+                .to.have.string('/');
+        });
+    });
+
 });

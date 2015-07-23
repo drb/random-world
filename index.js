@@ -5,17 +5,14 @@
  */
 var randomWorldFactory = (function () {
 
-    var signature   = {},
-        _           = require('underscore'), 
+    var _           = require('underscore'), 
         fs          = require('fs'), 
         path        = require('path'),
-        seedrandom  = require('seedrandom'),
         libFilter   = '.js', 
         libPath     = path.resolve(path.join(__dirname, 'lib')),
-        libraries   = fs.readdirSync(path.normalize(libPath));
+        libraries   = fs.readdirSync(path.normalize(libPath)),
+        signature   = {};
 
-    // use instead of Math.random() to make more random
-    rng = seedrandom('iamateapot', { entropy: true });
 
     /**
      * tokenize
@@ -27,7 +24,7 @@ var randomWorldFactory = (function () {
      * @param  {[type]} struct [description]
      * @return {[type]}        [description]
      */
-    tokenize = function (key, struct, lockedRefs, out, nope) {
+    tokenize = function (key, struct, lockedRefs, out) {
 
         var str             = _.clone(struct[key]),
             tokenizedValue  = str,
@@ -37,10 +34,6 @@ var randomWorldFactory = (function () {
             refLocked, 
             libOut,
             options;
-        
-        if(nope){
-            return;
-        }
 
         while ((match = re.exec(str)) !== null) {
 
@@ -74,7 +67,7 @@ var randomWorldFactory = (function () {
                 }
 
             } catch (e) { 
-                console.error(e); 
+                console.error('Error calling method', e); 
             }
         }
 
@@ -111,11 +104,12 @@ var randomWorldFactory = (function () {
             struct,
             data,
             refs,
-            pagination;
+            pagination,
+            self                    = this;
 
         structCollections.forEach(function(collection) {
             
-            maxMembers        = Math.ceil(rng() * 12); 
+            maxMembers        = Math.ceil(self.utils.random(12)); 
             collectionMembers = [];
             struct            = _.clone(collections[collection].struct);
             type              = collections[collection].type; 
@@ -159,7 +153,7 @@ var randomWorldFactory = (function () {
             pagination,
             refs = {};
 
-        signature.mockData = mock;
+        this.mockData = mock;
             
         if (!_.isObject(mock)) {
             try {
@@ -232,10 +226,14 @@ var randomWorldFactory = (function () {
      * @param  {[type]} lib){       if (path.extname(lib) [description]
      * @return {[type]}            [description]
      */
-    libraries.forEach(function(lib){
+    libraries.forEach(function(lib) {
 
         if (path.extname(lib) === libFilter) {
-            register(lib);
+            try {
+                register(lib);    
+            } catch (e) {
+                console.error(e);
+            }
         }
     });
 
