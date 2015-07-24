@@ -49,13 +49,13 @@ describe('Mocking server tests:', function() {
             }
         };
 
-        // console.log('json transformed output', random.fromMock(obj));
+        console.log('json transformed output', random.fromMock(obj));
 
-        it('should return an object', function () {
-            expect(random.fromMock(obj))
-                .to.be.a('object')
-                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject');
-        });
+        // it('should return an object', function () {
+        //     expect(random.fromMock(obj))
+        //         .to.be.a('object')
+        //         .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject');
+        // });
     });
 
     describe('fromMock() paginated collection', function () {
@@ -95,10 +95,10 @@ describe('Mocking server tests:', function() {
 
         // console.log('json transformed output', random.fromMock(obj));
 
-        it('should return a collection that contains 12 objects', function () {
-            expect(random.fromMock(obj))
-                .to.be.a('array')
-                .to.have.length(12);
-        });
+        // it('should return a collection that contains 12 objects', function () {
+        //     expect(random.fromMock(obj))
+        //         .to.be.a('array')
+        //         .to.have.length(12);
+        // });
     });
 });
