@@ -8,8 +8,10 @@ var randomWorldFactory = (function () {
     var _           = require('underscore'), 
         fs          = require('fs'), 
         path        = require('path'),
+
         // the return sig
         signature   = {},
+
         // various load configs
         libFilter   = '.js', 
         libPath     = path.resolve(path.join(__dirname, 'lib/methods')),
@@ -45,11 +47,6 @@ var randomWorldFactory = (function () {
 
         _.extend(signature, instance);
     }
-
-
-    console.log(signature.fromMock({type: 'object', struct: {
-        test: "my name is $fullname"
-    }}));
 
     return signature;
 
