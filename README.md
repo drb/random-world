@@ -16,9 +16,6 @@ Node module for generating random data - built for usage with a [RAML mocking se
 var random = require('random-world');
 ```
 
-## Tests
-
-`npm test`
 
 ## Modules
 
@@ -39,13 +36,27 @@ These are a work in progress and are added to as the parent project evolves. Met
 
 Address specific methods.
 
-```javascript
-random.city(options);
-```
+* `random.city()` - generate a random city name.
+  * `country` - String representing the country to restrict the city to.
+
+---
 
 ### Collections
 
+* `random.array()` - generate an array up 12 items long, filled with random numbers between 1-200.
+  * `limit` - Explicit length of the array
+
+---
+
 ### Dates
+
+* `random.now()` - The date and time right now.
+* `random.unixtimestamp()` - A date and time in UNIX timestamp format.
+  * `format` - UK date format is only supported
+  * `start` - Minimum bound the randomisation should start from.
+  * `end` - Maximum bound the randomisation should end at.
+
+---
 
 ### Files
 
@@ -60,5 +71,9 @@ random.city(options);
 ### Strings
 
 ### Objects
+
+## Tests
+
+`npm test`
 
 [![Build Status](https://travis-ci.org/drb/random-world.svg)](https://travis-ci.org/drb/random-world) [![npm version](https://badge.fury.io/js/random-world.svg)](http://badge.fury.io/js/random-world)
