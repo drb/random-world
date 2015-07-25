@@ -43,6 +43,8 @@ Address specific methods.
 
 ### Collections
 
+Arrays of random data.
+
 * `random.array()` - generate an array up 12 items long, filled with random numbers between 1-200.
   * `limit` - Explicit length of the array
 
@@ -55,12 +57,35 @@ Address specific methods.
   * `format` - UK date format is only supported
   * `start` - Minimum bound the randomisation should start from.
   * `end` - Maximum bound the randomisation should end at.
+* `random.date()` - A random date
+  * `format` - UK date format is only supported
+  * `start` - Minimum bound the randomisation should start from.
+  * `end` - Maximum bound the randomisation should end at.
+* `random.dayofweek()` - A random day of the week.
+  * `short` - Short 3 character format (i.e. Mon vs Monday).
+* `random.year()` - A random year
+  * `format` - UK date format is only supported
+  * `start` - Minimum bound the year randomisation should start from.
+  * `end` - Maximum bound the year randomisation should end at.
+* `random.month()` - A random day of the week.
+  * `short` - Short 3 character format (i.e. Jul vs July).
 
 ---
 
 ### Files
 
+Returns random file extensions
+
+* `random.extension()` - A random file extension.
+  * `includeDot` - Returns a dot prefix for the extension (i.e. .png vs png).
+
 ### Geography
+
+Generate randomised lat/long sets.
+
+* `random.latlong()` - The date and time right now.
+* `random.lat()` - The date and time right now.
+* `random.long()` - The date and time right now.
 
 ### Names
 
