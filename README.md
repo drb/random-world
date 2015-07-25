@@ -1,4 +1,4 @@
-https://nodei.co/npm/random-world.png?downloads=true&downloadRank=true&stars=true
+[![NPM Stats](https://nodei.co/npm/random-world.png?downloads=true&downloadRank=true&stars=true)]
 
 [![Build Status](https://travis-ci.org/drb/random-world.svg)](https://travis-ci.org/drb/random-world) [![npm version](https://badge.fury.io/js/random-world.svg)](http://badge.fury.io/js/random-world)
 
