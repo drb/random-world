@@ -4,7 +4,7 @@
 
 # Random World
 
-Node module for generating random data - built for usage with a [RAML mocking server](https://www.npmjs.com/package/raml-mock-server) to generate collections of complex data structures with more realistic values.
+Node module for generating random data - built for usage with a [RAML-based API mocking server](https://www.npmjs.com/package/raml-mock-server) to generate collections of complex data structures with more realistic values.
 
 ## Installation
 
@@ -15,8 +15,6 @@ Node module for generating random data - built for usage with a [RAML mocking se
 ```javascript
 var random = require('random-world');
 ```
-
-
 ## Modules
 
 These are a work in progress and are added to as the parent project evolves. Method names and options are likely to change.
@@ -32,9 +30,9 @@ These are a work in progress and are added to as the parent project evolves. Met
 * [Strings](#strings)
 * [Complex Structures](#objects)
 
-### Addresses
+### Places
 
-Address specific methods.
+Location-specific methods.
 
 * `random.city()` - generate a random city name.
   * `country` - String representing the country to restrict the city to.
@@ -78,26 +76,42 @@ Returns random file extensions
 
 * `random.extension()` - A random file extension.
   * `includeDot` - Returns a dot prefix for the extension (i.e. .png vs png).
+  
+---
 
 ### Geography
 
 Generate randomised lat/long sets.
 
-* `random.latlong()` - The date and time right now.
-* `random.lat()` - The date and time right now.
-* `random.long()` - The date and time right now.
+* `random.latlong()` - Object containing a longitude and latitude.
+* `random.lat()` - A random latitude.
+* `random.long()` - A random longitude.
+
+---
 
 ### Names
 
+Generate randomised lat/long sets.
+
+---
+
 ### Network
+
+---
 
 ### Numbers
 
+---
+
 ### Strings
+
+---
 
 ### Objects
 
-## Tests
+---
+
+## Running Tests
 
 `npm test`
 
