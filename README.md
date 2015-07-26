@@ -136,9 +136,9 @@ String patterns.
 
 ### Objects
 
-* `random.fromMock()` - Parses an object for 
+* `random.fromMock()` - Parses an object for placeholders that represent `random-world` methods. 
 
-Nested object parser takes a complex object and converts all placeholders for `random-world` methods to a randomly assigned value.
+Nested object parser takes a complex object and converts all placeholders for `random-world` methods to a randomly assigned value. Documentation for this is covered in [more detail here](https://www.npmjs.com/package/raml-mock-server).
 
 ---
 
