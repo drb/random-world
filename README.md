@@ -91,23 +91,31 @@ Generate randomised lat/long sets.
 
 ### Names
 
-Generate randomised lat/long sets.
+Returns names for people using a dictionary of popular names - only names from the USA are supported at the moment.
 
 ---
 
 ### Network
 
+Network specific values.
+
 ---
 
 ### Numbers
+
+Integers and floats.
 
 ---
 
 ### Strings
 
+String patterns.
+
 ---
 
 ### Objects
+
+Nested object parser takes a complex object and converts all placeholders for `random-world` methods to a randomly assigned value.
 
 ---
 
