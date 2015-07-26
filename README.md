@@ -19,7 +19,7 @@ var random = require('random-world');
 
 These are a work in progress and are added to as the parent project evolves. Method names and options are likely to change.
 
-* [Addresses](#addresses)
+* [Places](#places)
 * [Collections](#collections)
 * [Dates & Times](#dates)
 * [Files](#files)
@@ -91,7 +91,14 @@ Generate randomised lat/long sets.
 
 ### Names
 
-Returns names for people using a dictionary of popular names - only names from the USA are supported at the moment.
+Returns names for people using a dictionary of popular first and last names - only data from the USA is supported at the moment.
+
+* `random.firstname()` - Returns a person's first name.
+  * `gender` - Limit result to male or female names.
+    * `male|female`
+  * `startsWith` - Return names starting with the supplied substring.
+  * `charCase` - Transform the name to upper or lowercase.
+    * `upper|lower
 
 ---
 
@@ -99,11 +106,20 @@ Returns names for people using a dictionary of popular names - only names from t
 
 Network specific values.
 
+* `random.domain()` - Returns a mock domain name.
+* `random.ip()` - Returns an IPv4 IP address.
+* `random.ipv6()` - Returns an IPv6 IP address.
+* `random.tld()` - Returns a top level domain.
+
 ---
 
 ### Numbers
 
 Integers and floats.
+
+* `random.integer()` - Returns a random integer.
+* `random.float()` - Returns a random float.
+* `random.sum()` - Returns an array of X values that add up to the target value.
 
 ---
 
@@ -111,9 +127,16 @@ Integers and floats.
 
 String patterns.
 
+* `random.sentence()` - Returns a sentence retrieved from Lorem Ipsum strings.
+* `random.block()` - Creates a string made up of blocks of characters.
+* `random.random()` - A random string created from the default characters, or the supplied chars.
+* `random.word()` - A random dictionary word.
+
 ---
 
 ### Objects
+
+* `random.fromMock()` - Parses an object for 
 
 Nested object parser takes a complex object and converts all placeholders for `random-world` methods to a randomly assigned value.
 
