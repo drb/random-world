@@ -14,9 +14,9 @@ describe('Date tests:', function() {
         });
     });
 
-    describe('randomdate() after 10/03/2015', function () {
+    describe('date() after 10/03/2015', function () {
         it('should return a random date after 10/03/2015 but before 20/03/2015', function () {
-            expect(random.randomdate({
+            expect(random.date({
                     start: '10/03/2015',
                     end: '20/03/2015'
                 }))
