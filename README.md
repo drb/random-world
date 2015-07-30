@@ -37,6 +37,8 @@ Location-specific methods.
 
 * `random.city()` - generate a random city name.
   * `country` - String representing the country to restrict the city to.
+* `random.country()` - generate a random country name.
+* `random.countrycode()` - generate a random country code.
 
 ---
 
