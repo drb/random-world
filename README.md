@@ -28,6 +28,7 @@ These are a work in progress and are added to as the parent project evolves. Met
 * [Network](#network)
 * [Numbers](#numbers)
 * [Strings](#strings)
+* [Booleans](#booleans)
 * [Complex Structures](#objects)
 
 ### Places
@@ -131,6 +132,14 @@ String patterns.
 * `random.block()` - Creates a string made up of blocks of characters.
 * `random.random()` - A random string created from the default characters, or the supplied chars.
 * `random.word()` - A random dictionary word.
+
+---
+
+### Booleans
+
+Truthy values.
+
+* `random.boolean()` - Returns a random true or false.
 
 ---
 
