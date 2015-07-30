@@ -1,6 +1,6 @@
 {
   "name": "random-world",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Nodejs. module to generate random collections of data.",
   "main": "index.js",
   "scripts": {
