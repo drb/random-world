@@ -34,4 +34,47 @@ describe('Date tests:', function() {
         });
     });
 
+    describe('dayofweek()', function () {
+        it('should return a day of the week', function () {
+            var dayOfWeek = random.dayofweek();
+            expect(dayOfWeek)
+                .to.be.a('string');
+        });
+    });
+
+    describe('dayofweek()', function () {
+        it('should return a day of the week, in short form', function () {
+            var dayOfWeek = random.dayofweek({short: true});
+            expect(dayOfWeek)
+                .to.be.a('string')
+                .to.have.length(3);
+        });
+    });
+
+
+    describe('month()', function () {
+        it('should return a month', function () {
+            var month = random.month();
+            expect(month)
+                .to.be.a('string');
+        });
+    });
+
+    describe('month()', function () {
+        it('should return a month, in short form', function () {
+            var month = random.month({short: true});
+            expect(month)
+                .to.be.a('string')
+                .to.have.length(3);
+        });
+    });
+
+     describe('year()', function () {
+        it('should return a year', function () {
+            var year = random.year();
+            expect(year)
+                .to.be.a('number');
+        });
+    });
+
 });

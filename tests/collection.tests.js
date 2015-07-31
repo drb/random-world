@@ -1,4 +1,5 @@
-var expect = require('chai').expect,
+var _ = require('underscore'),
+    expect = require('chai').expect,
     random = require('../index');
 
 /**
@@ -19,6 +20,19 @@ describe('Array tests:', function() {
             expect(random.array({limit: 10}))
                 .to.be.a('array')
                 .to.have.length(10);
+        });
+
+        it('should return a random item from a known set of items', function () {
+            var items = "foo, bar, baz, one, two, three",
+                item = random.pickone({items: items, delimiter: ", "});
+
+            expect(item)
+                .to.be.a('string')
+                .to.have.length.above(0).
+                to.satisfy(function(i){
+                    var seed = items.split(', ');
+                    return _.contains(seed, i);
+                });
         });
     });
 });
