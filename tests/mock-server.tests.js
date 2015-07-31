@@ -18,7 +18,8 @@ describe('Mocking server tests:', function() {
                 "age": "$integer is a nice age to be",
                 "block": "$block",
                 "someArray": [{nativeType: 1}],
-                "array": "$array"
+                "array": "$array",
+                "ext": "$pickone{\"items\": \"+11|+44|+99\"}"
             },
             "collections": {
                 "companies": {
@@ -28,7 +29,8 @@ describe('Mocking server tests:', function() {
                     "struct": {
                         "name": "$block{\"blockSize\": 444} is a company name $firstname.",
                         "companyAge": "$integer",
-                        "website": "http://www.$word{\"delimiter\":\"-\", \"limit\": 2}.com"
+                        "website": "http://www.$word{\"delimiter\":\"-\", \"limit\": 2}.com",
+                        "phoneExtension": "$pickone{\"items\": \"+11|+44|+99\"}"
                     }
                 },
                 "statuses": {
@@ -54,7 +56,7 @@ describe('Mocking server tests:', function() {
         it('should return an object', function () {
             expect(random.fromMock(random, obj))
                 .to.be.a('object')
-                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject');
+                .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject', 'ext');
         });
     });
 
@@ -70,7 +72,8 @@ describe('Mocking server tests:', function() {
                 "lastName": "$lastname{\"startsWith\": \"Bu\"}",
                 "introduction": "My last name is $$lastname, but my maiden name is $lastname.",
                 "age": "$integer",
-                "array": "$array"
+                "array": "$array",
+                "device": "$pickone{\"items\": \"Android|iOS|Windows\"}"
             },
             "collections": {
                 "companies": {
