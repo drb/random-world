@@ -23,7 +23,7 @@ describe('Array tests:', function() {
         });
 
         it('should return a random item from a known set of items', function () {
-            var items = "foo, bar, baz, one, two, three",
+            var items = "foo, bar, baz, one, two > one, three, a more complex string...",
                 item = random.pickone({items: items, delimiter: ", "});
 
             expect(item)
