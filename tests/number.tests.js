@@ -7,10 +7,18 @@ var expect = require('chai').expect,
  * @return {[type]}   [description]
  */
 describe('Number tests:', function() {
+
     describe('getInt()', function () {
         it('should return a number', function () {
             expect(random.integer())
             	.to.be.a('number');
+        });
+    });
+
+    describe('getInt()', function () {
+        it('should return a number, padded with upto 3 zeroes', function () {
+            expect(random.integer({padding: 5, max: 100}))
+                .to.be.a('string');
         });
     });
 
