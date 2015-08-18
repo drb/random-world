@@ -24,8 +24,63 @@ describe('String tests:', function() {
 
     describe('word()', function () {
         it('should return a random word', function () {
-            expect(random.word())
+            var word = random.word();
+            // console.log(word);
+            expect(word)
                 .to.be.a('string');
         });
     }); 
+
+    describe('word() uppercase', function () {
+        it('should return an [UPPERCASE] random word', function () {
+            var options = {
+                    charcase: 'upper'
+                },
+                word = random.word(options);
+            
+            expect(word)
+                .to.be.a('string')
+                .to.match(/[A-Z]+$/);
+        });
+    }); 
+
+
+    describe('word() lowercase', function () {
+        it('should return an [lowercase] random word', function () {
+            var options = {
+                    charcase: 'lower'
+                },
+                word = random.word(options);
+            
+            expect(word)
+                .to.be.a('string')
+                .to.match(/[a-z]+$/);
+        });
+    }); 
+
+
+    describe('word() sentence case', function () {
+        it('should return a [Sentence Case] random word', function () {
+            var options = {
+                    charcase: 'sentence'
+                },
+                word = random.word(options);
+        
+            expect(word)
+                .to.be.a('string')
+                .to.match(/^[A-Z]/);
+        });
+    }); 
+
+
+    // describe('French word()', function () {
+    //     it('should raise an exception as the language is not supported', function () {
+    //         var options = {
+    //             language: 'French'
+    //         };
+
+    //         expect(random.word(options))
+    //             .to.throw(new Error('Only English is supported in this method'));
+    //     });
+    // }); 
 });
