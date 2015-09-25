@@ -1,4 +1,11 @@
+/**
+ * unit tests with mocha
+ * 
+ * @param  {[type]} grunt [description]
+ * @return {[type]}       [description]
+ */
 module.exports = function(grunt) {
+    
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         simplemocha: {
