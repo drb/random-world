@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * [description]
  * @param  {[type]} ) { var        names [description]
@@ -8,13 +10,14 @@ var randomWorldFactory = (function () {
     var _           = require('underscore'), 
         fs          = require('fs'), 
         path        = require('path'),
+        cwd         = __dirname, 
 
         // the return sig
         signature   = {},
 
         // various load configs
         libFilter   = '.js', 
-        libPath     = path.resolve(path.join(__dirname, 'lib/methods')),
+        libPath     = path.resolve(path.join(cwd, 'lib/methods')),
         libraries   = fs.readdirSync(path.normalize(libPath));
     
     /**

@@ -25,7 +25,6 @@ describe('String tests:', function() {
     describe('word()', function () {
         it('should return a random word', function () {
             var word = random.word();
-            // console.log(word);
             expect(word)
                 .to.be.a('string');
         });
@@ -73,14 +72,18 @@ describe('String tests:', function() {
     }); 
 
 
-    // describe('French word()', function () {
-    //     it('should raise an exception as the language is not supported', function () {
-    //         var options = {
-    //             language: 'French'
-    //         };
+    describe('French word()', function () {
+        it('should raise an exception as the language is not supported', function () {
+            var options = {
+                language: 'French'
+            };
 
-    //         expect(random.word(options))
-    //             .to.throw(new Error('Only English is supported in this method'));
-    //     });
-    // }); 
+            expect(
+                // use anonymous function when trapping exceptions
+                function() { 
+                    random.word(options);
+                }
+            ).to.throw(Error);
+        });
+    }); 
 });

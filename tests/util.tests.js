@@ -7,23 +7,15 @@ var expect = require('chai').expect,
  * 
  * @return {[type]}   [description]
  */
-describe('Util randomisation tests:', function() {
+describe('Utilities method - randomisation tests:', function() {
 
-    describe('utils.random()', function () {
+    describe('utils.random() 0-1 range', function () {
         it('should return a random number between 0-1', function () {
-            var rng = utils.random(1);
+            var rng = utils.random();
             expect(rng)
                 .to.be.a('number')
-                .to.be.below(1);
-        });
-    });
-
-    describe('utils.random()', function () {
-        it('should return a random number between 0-100', function () {
-            var rng = utils.random(100);
-            expect(rng)
-                .to.be.a('number')
-                .to.be.below(100);
+                .to.be.below(1)
+                .to.be.above(0);
         });
     });
 

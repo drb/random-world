@@ -51,4 +51,12 @@ describe('Number tests:', function() {
                 });
         });
     });
+
+    describe('getInt() with negative value', function () {
+        it('should return a number', function () {
+            expect(random.integer({min: -100, max: 0}))
+                .to.be.a('number')
+                .to.be.below(0);
+        });
+    });
 });
