@@ -29,6 +29,7 @@ These are a work in progress and are added to as the parent project evolves. Met
 * [Numbers](#numbers)
 * [Strings](#strings)
 * [Booleans](#booleans)
+* [Money](#money)
 * [Complex Structures](#objects)
 
 ### Places
@@ -142,6 +143,38 @@ String patterns.
 Truthy values.
 
 * `random.boolean()` - Returns a random true or false.
+
+---
+
+### Money
+
+Credit card data specific methods.
+
+* `random.ccnumber()` - Returns a random (valid, MOD10 checked) credit card number.
+  * `shortName` - Limits the returned card number to a specific card type. See following table for supported types.
+  * `hasHyphens` - Boolean. Formats credit card number with a hypen very 4 characters.
+* `random.ccstart()` - Returns a random start date in MM/YY format.
+* `random.ccexpiry()` - Returns a random expiry in MM/YY format.
+* `random.cctype()` - Returns a random credit card type. e.g. MasterCard, VISA etc
+* `random.cvv()` - Returns a random 3 digit CVV value.
+* `random.cv2()` - Alias to `cvv()` method.
+
+Supported card types.
+
+|Card Type|Short Code|
+|---|---|
+| American Express  |AE   |
+| Diners Club - Carte Blanche  | DC-CB  |
+|  Diners Club - International | DC-I  |
+|  Diners Club - USA & Canada | DC  |
+| Discover  | D  |
+| InstaPayment  |  IP |
+|  JCB | JCB  |
+|Laser   |  L |
+|  Maestro | MA  |
+|  MasterCard | MC  |
+|  Visa | V  |
+|  Visa Electron | VE  |
 
 ---
 
