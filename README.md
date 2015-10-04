@@ -36,10 +36,10 @@ These are a work in progress and are added to as the parent project evolves. Met
 
 Location-specific methods.
 
-* `random.city()` - generate a random city name.
+* `random.city()` - Generate a random city name.
   * `country` - String representing the country to restrict the city to.
-* `random.country()` - generate a random country name.
-* `random.countrycode()` - generate a random country code.
+* `random.country()` - Generate a random country name.
+* `random.countrycode()` - Generate a random country code.
 
 ---
 
@@ -47,9 +47,9 @@ Location-specific methods.
 
 Arrays of random data.
 
-* `random.array()` - generate an array up 12 items long, filled with random numbers between 1-200.
+* `random.array()` - Generate an array up 12 items long, filled with random numbers between 1-200.
   * `limit` - Explicit length of the array
-* `random.pickone()` - returns a random item from a pre-defined list of values, separated by a delimiter. Delimter is defaulted to pipe (|) but can be specified in the options.
+* `random.pickone()` - Returns a random item from a pre-defined list of values, separated by a delimiter. Delimter is defaulted to pipe (|) but can be specified in the options.
   * `delimiter` - The custom delimiter separating the values
 
 ---
