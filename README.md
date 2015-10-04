@@ -49,6 +49,8 @@ Arrays of random data.
 
 * `random.array()` - generate an array up 12 items long, filled with random numbers between 1-200.
   * `limit` - Explicit length of the array
+* `random.pickone()` - returns a random item from a pre-defined list of values, separated by a delimiter. Delimter is defaulted to pipe (|) but can be specified in the options.
+  * `delimiter` - The custom delimiter separating the values
 
 ---
 
@@ -103,6 +105,23 @@ Returns names for people using a dictionary of popular first and last names - on
   * `startsWith` - Return names starting with the supplied substring.
   * `charCase` - Transform the name to upper or lowercase.
     * `upper|lower
+* `random.lastname()` - Returns a person's last name (surname).
+  * `startsWith` - Return names starting with the supplied substring.
+  * `charCase` - Transform the name to upper or lowercase.
+    * `upper|lower
+* `random.fullname()` - Returns a person's first name.
+  * `gender` - Limit result to male or female names.
+    * `male|female`
+  * `startsWith` - Return names starting with the supplied substring.
+  * `charCase` - Transform the name to upper or lowercase.
+    * `upper|lower
+* `random.title()` - Returns a random title.
+* `random.email()` - Returns a person's first name.
+  * `hasDot` - Split name section of address (before @) with a dot.
+  * `hasPlusAddress` - Include a plus address in the name section.
+  * `charCase` - Transform the address to upper or lowercase.
+    * `upper|lower
+  * `standard` - Limit the TLDs to a standard set (.com, .org, .co.uk etc).
 
 ---
 
@@ -112,8 +131,9 @@ Network specific values.
 
 * `random.domain()` - Returns a mock domain name.
 * `random.ip()` - Returns an IPv4 IP address.
-* `random.ipv6()` - Returns an IPv6 IP address.
+* `random.ipv6()` - Returns an IPv6 IP address. Not yet implemented.
 * `random.tld()` - Returns a top level domain.
+  * `standard` - Limit the TLDs to a standard set (.com, .org, .co.uk etc).
 
 ---
 
@@ -122,6 +142,11 @@ Network specific values.
 Integers and floats.
 
 * `random.integer()` - Returns a random integer.
+  * `min` - Minimum value to return.
+  * `max` - Maximum value to return.
+  * `round` - Round the value (to nearest whole number).
+  * `padding` - Zero-pads value up to the length specified.
+* `random.number()` - Alias for `integer()`.
 * `random.float()` - Returns a random float.
 * `random.sum()` - Returns an array of X values that add up to the target value.
 
@@ -133,9 +158,16 @@ String patterns.
 
 * `random.sentence()` - Returns a sentence retrieved from Lorem Ipsum strings.
 * `random.block()` - Creates a string made up of blocks of characters.
+  * `blockSize` - Length of each block.
+  * `delimiter` - Split each block with specific delimiter.
+  * `chars` - Limit blocks to defined characters. Defaults to A-Z.
 * `random.random()` - A random string created from the default characters, or the supplied chars.
+  * `chars` - Limit string to defined characters. Defaults to A-Za-z0-9.
+  * `len` - Length of the string. Defaults to 16.
 * `random.word()` - A random dictionary word.
-
+  * `charCase` - Transform the word to upper or lowercase.
+    * `upper|lower
+  * `limit` - Number of words to return. Defaults to 1.
 ---
 
 ### Booleans
@@ -181,6 +213,21 @@ Supported card types.
 ### Objects
 
 * `random.fromMock()` - Parses an object for placeholders that represent `random-world` methods. 
+
+```
+{
+  "struct": {
+    "name": "$fullname",
+    "addressId": "$number{\"min\": 100, \"max\": 2000, \"round\": true}",
+    "description": "$word{\"charCase\": \"upper\"} Office",
+    "addressLine1": "$word",
+    "city": "$city",
+    "postcode": "$postcode",
+    "country": "$country",
+    "isDeleted": "$boolean"
+  }
+}
+```
 
 Nested object parser takes a complex object and converts all placeholders for `random-world` methods to a randomly assigned value. Documentation for this is covered in [more detail here](https://www.npmjs.com/package/raml-mock-server).
 
