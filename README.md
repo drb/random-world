@@ -166,8 +166,9 @@ String patterns.
   * `len` - Length of the string. Defaults to 16.
 * `random.word()` - A random dictionary word.
   * `charCase` - Transform the word to upper or lowercase.
-    * `upper|lower
+    * `upper|lower`
   * `limit` - Number of words to return. Defaults to 1.
+  
 ---
 
 ### Booleans
