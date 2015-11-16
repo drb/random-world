@@ -28,7 +28,7 @@ These are a work in progress and are added to as the parent project evolves. Met
 * [Network](#network)
 * [Numbers](#numbers)
 * [Strings](#strings)
-* [Booleans](#booleans)
+* [Truth (Booleans)](#truth)
 * [Money](#money)
 * [Complex Structures](#objects)
 
@@ -171,9 +171,9 @@ String patterns.
   
 ---
 
-### Booleans
+### Truth
 
-Truthy values.
+Randomised boolean values.
 
 * `random.boolean()` - Returns a random true or false.
 
@@ -213,7 +213,7 @@ Supported card types.
 
 ### Objects
 
-* `random.fromMock()` - Parses an object for placeholders that represent `random-world` methods. 
+* `random.fromObject()` - Parses an object for placeholders that represent `random-world` methods. 
 
 ```
 {
