@@ -113,4 +113,67 @@ describe('Utilities method', function() {
 
     });
 
+
+    // ensure the number set checks actually work with known data 
+    describe('check the permutation/combination checker does correct checks', function() {
+
+        describe('should return the correct values for the permutations available', function(){
+
+            // small set
+            it('should return 6', function () {
+                var permutations = utils.setChecker.permutations(3, 2);
+                expect(permutations)
+                    .to.be.a('number')
+                    .to.equal(6);
+            });
+
+
+            // large set
+            it('should return 210', function () {
+                var permutations = utils.setChecker.permutations(7, 3);
+                expect(permutations)
+                    .to.be.a('number')
+                    .to.equal(210);
+            });
+
+
+            // massive set
+            it('should return 655,381,440', function () {
+                var permutations = utils.setChecker.permutations(60, 5);
+                expect(permutations)
+                    .to.be.a('number')
+                    .to.equal(655381440);
+            });
+        });
+
+
+        describe('should return the correct values for the combinations available', function(){
+
+            // small set
+            it('small set - should return 3', function () {
+                var combinations = utils.setChecker.combinations(3, 2);
+                expect(combinations)
+                    .to.be.a('number')
+                    .to.equal(3);
+            });
+
+            // large set
+            it('large set - should return 27405', function () {
+                var combinations = utils.setChecker.combinations(30, 4);
+                expect(combinations)
+                    .to.be.a('number')
+                    .to.equal(27405);
+            });
+
+            // massive set
+            it('massive set - should return 1,215,450', function () {
+                var combinations = utils.setChecker.combinations(75, 4);
+                expect(combinations)
+                    .to.be.a('number')
+                    .to.equal(1215450);
+            });
+        });
+
+    });
+
 });
