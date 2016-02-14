@@ -3,14 +3,14 @@ var expect = require('chai').expect,
 
 /**
  * mock tests
- * 
+ *
  * @return {[type]}   [description]
  */
 describe('Mocking server tests:', function() {
 
     describe('fromMock() simple object', function () {
 
-        var obj = { 
+        var obj = {
             "type": "object",
             "struct": {
                 "firstName": "$firstname{\"gender\":\"male\"}",
@@ -51,10 +51,12 @@ describe('Mocking server tests:', function() {
             }
         };
 
+        console.log(obj);
+
         // console.log('json transformed output', random.fromMock(random, obj));
 
         it('should return an object', function () {
-            expect(random.fromMock(random, obj))
+            expect(random.fromObject(random, obj))
                 .to.be.a('object')
                 .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject', 'ext');
         });
@@ -62,7 +64,7 @@ describe('Mocking server tests:', function() {
 
     describe('fromMock() paginated collection', function () {
 
-        var obj = { 
+        var obj = {
             "type": "collection",
             "pagination": {
                 "limit": 12
@@ -82,7 +84,7 @@ describe('Mocking server tests:', function() {
                     },
                     "struct": {
                         "name": "$block{\"blockSize\": 136} is a company name $firstname.",
-                        "companyAge": "$integer"    
+                        "companyAge": "$integer"
                     }
                 },
                 "statuses": {
