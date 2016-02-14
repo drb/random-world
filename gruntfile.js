@@ -1,11 +1,11 @@
 /**
  * unit tests with mocha
- * 
+ *
  * @param  {[type]} grunt [description]
  * @return {[type]}       [description]
  */
 module.exports = function(grunt) {
-    
+
     grunt.initConfig({
         simplemocha: {
             options: {
@@ -15,8 +15,13 @@ module.exports = function(grunt) {
                 ui: 'bdd',
                 reporter: 'tap'
             },
-            all: { 
-                src: ['tests/*.js'] 
+            // all tests
+            all: {
+                src: ['tests/*.js']
+            },
+            // specific tests for momdules being refactored
+            refactor: {
+                src: ['tests/name.tests.js']
             }
         }
     });

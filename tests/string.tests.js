@@ -3,32 +3,39 @@ var expect = require('chai').expect,
 
 /**
  * String tests
- * 
+ *
  * @return {[type]}   [description]
  */
 describe('String tests:', function() {
 
     describe('sentence()', function () {
         it('should return a sentence from lorem ipsum', function () {
-            expect(random.sentence()).to.be.a('string');
+            var sentence = random.sentence();
+            var sentence1 = random.strings.sentence();
+            console.log("ONE", sentence);
+            console.log("TWO", sentence1);
+            expect(sentence).to.be.a('string');
         });
-    }); 
+    });
 
     describe('random()', function () {
         it('should return a random string that is 20 chars long', function () {
-            expect(random.random({len: 20}))
+            var string = random.random({len: 20});
+            // console.log(string);
+            expect(string)
                 .to.be.a('string')
                 .to.have.length(20);
         });
-    }); 
+    });
 
     describe('word()', function () {
         it('should return a random word', function () {
             var word = random.word();
+            // console.log(word);
             expect(word)
                 .to.be.a('string');
         });
-    }); 
+    });
 
     describe('word() uppercase', function () {
         it('should return an [UPPERCASE] random word', function () {
@@ -36,12 +43,12 @@ describe('String tests:', function() {
                     charcase: 'upper'
                 },
                 word = random.word(options);
-            
+
             expect(word)
                 .to.be.a('string')
                 .to.match(/[A-Z]+$/);
         });
-    }); 
+    });
 
 
     describe('word() lowercase', function () {
@@ -50,12 +57,12 @@ describe('String tests:', function() {
                     charcase: 'lower'
                 },
                 word = random.word(options);
-            
+
             expect(word)
                 .to.be.a('string')
                 .to.match(/[a-z]+$/);
         });
-    }); 
+    });
 
 
     describe('word() sentence case', function () {
@@ -64,12 +71,12 @@ describe('String tests:', function() {
                     charcase: 'sentence'
                 },
                 word = random.word(options);
-        
+
             expect(word)
                 .to.be.a('string')
                 .to.match(/^[A-Z]/);
         });
-    }); 
+    });
 
 
     describe('French word()', function () {
@@ -80,10 +87,39 @@ describe('String tests:', function() {
 
             expect(
                 // use anonymous function when trapping exceptions
-                function() { 
+                function() {
                     random.word(options);
                 }
             ).to.throw(Error);
         });
-    }); 
+    });
+
+
+    describe('block()', function () {
+        it('should return an alphanumeric block of characters corresponding to the pattern XXX-XXXX-XXXXX', function () {
+            var options = {
+                    blockSize: '345'
+                },
+                block = random.block(options);
+
+            expect(block)
+                .to.be.a('string')
+                .to.match(/([A-Z]){3}\-([A-Z]){4}\-([A-Z]){5}/);
+        });
+    });
+
+    describe('block() with custom delimiter and characterset limit', function () {
+        it('should return an block of characters limited to A, B, C corresponding to the pattern XXX:XXXX:XXXXX', function () {
+            var options = {
+                    blockSize: '345',
+                    delimiter: ':',
+                    chars: 'ABC'
+                },
+                block = random.block(options);
+
+            expect(block)
+                .to.be.a('string')
+                .to.match(/([A-C]){3}\:([A-C]){4}\:([A-C]){5}/);
+        });
+    });
 });

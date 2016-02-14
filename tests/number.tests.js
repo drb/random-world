@@ -3,26 +3,33 @@ var expect = require('chai').expect,
 
 /**
  * number tests
- * 
+ *
  * @return {[type]}   [description]
  */
 describe('Number tests:', function() {
 
-    describe('getInt()', function () {
+    describe('integer()', function () {
         it('should return a number', function () {
             expect(random.integer())
             	.to.be.a('number');
         });
     });
 
-    describe('getInt()', function () {
+    describe('integer()', function () {
         it('should return a number, padded with upto 3 zeroes', function () {
             expect(random.integer({padding: 5, max: 100}))
                 .to.be.a('string');
         });
     });
 
-    describe('getFloat()', function () {
+    describe('number()', function () {
+        it('alias to integer - should return a number, padded with upto 3 zeroes', function () {
+            expect(random.number({padding: 5, max: 100}))
+                .to.be.a('string');
+        });
+    });
+
+    describe('float()', function () {
         it('should return a floating point number', function () {
             expect(random.float())
             	.to.satisfy(function(fl) {
@@ -31,7 +38,7 @@ describe('Number tests:', function() {
         });
     });
 
-    describe('getRange()', function () {
+    describe('sum()', function () {
         it('should return a random range of 9 numbers that sum to 101', function () {
             var options = {
                     max: 101,
@@ -52,7 +59,7 @@ describe('Number tests:', function() {
         });
     });
 
-    describe('getInt() with negative value', function () {
+    describe('integer() with negative value', function () {
         it('should return a number', function () {
             expect(random.integer({min: -100, max: 0}))
                 .to.be.a('number')
