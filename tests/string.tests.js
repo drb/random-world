@@ -11,9 +11,9 @@ describe('String tests:', function() {
     describe('sentence()', function () {
         it('should return a sentence from lorem ipsum', function () {
             var sentence = random.sentence();
-            var sentence1 = random.strings.sentence();
-            console.log("ONE", sentence);
-            console.log("TWO", sentence1);
+            // var sentence1 = random.strings.sentence();
+            // console.log("ONE", sentence);
+            // console.log("TWO", sentence1);
             expect(sentence).to.be.a('string');
         });
     });

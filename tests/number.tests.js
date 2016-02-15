@@ -8,10 +8,18 @@ var expect = require('chai').expect,
  */
 describe('Number tests:', function() {
 
-    describe('integer()', function () {
+    describe('any integer()', function () {
         it('should return a number', function () {
             expect(random.integer())
             	.to.be.a('number');
+        });
+    });
+
+    describe('positive integer()', function () {
+        it('should return a number greater than 0', function () {
+            expect(random.integer({min: 1}))
+            	.to.be.a('number')
+                .to.be.above(1);
         });
     });
 
@@ -60,10 +68,20 @@ describe('Number tests:', function() {
     });
 
     describe('integer() with negative value', function () {
-        it('should return a number', function () {
-            expect(random.integer({min: -100, max: 0}))
+        it('should return a number less than 0', function () {
+            var int = random.integer({min: -999999, max: 0, round: true});
+            expect(int)
                 .to.be.a('number')
                 .to.be.below(0);
+        });
+    });
+
+    describe('integer() with negative value between specific values', function () {
+        it('should return a number between -1000 and -677', function () {
+            var int = random.integer({min: -1000, max: -677, round: true});
+            expect(int)
+                .to.be.a('number')
+                .to.be.within(-1000, -677);
         });
     });
 });

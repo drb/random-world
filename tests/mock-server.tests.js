@@ -8,6 +8,12 @@ var expect = require('chai').expect,
  */
 describe('Mocking server tests:', function() {
 
+    /**
+     * passes in a single mock object and tests the return values are legit
+     *
+     * @param  {[type]} 'fromMock( [description]
+     * @return {[type]}            [description]
+     */
     describe('fromMock() simple object', function () {
 
         var obj = {
@@ -15,7 +21,7 @@ describe('Mocking server tests:', function() {
             "struct": {
                 "firstName": "$firstname{\"gender\":\"male\"}",
                 "lastName": "$lastname",
-                "age": "$integer is a nice age to be",
+                "age": "$integer{\"max\":100} is a nice age to be",
                 "block": "$block",
                 "someArray": [{nativeType: 1}],
                 "array": "$array",
@@ -24,12 +30,13 @@ describe('Mocking server tests:', function() {
             "collections": {
                 "companies": {
                     "pagination": {
-                        "limits": 10
+                        "limits": 12
                     },
                     "struct": {
-                        "name": "$block{\"blockSize\": 444} is a company name $firstname.",
-                        "companyAge": "$integer",
-                        "website": "http://www.$word{\"delimiter\":\"-\", \"limit\": 2}.com",
+                        "name": "$word{\"charcase\": \"sentence\"} Limited.",
+                        "description": "Company reference $block{\"blockSize\": 444}. The MD is called $fullname.",
+                        "moneyInBank": "$integer",
+                        "website": "https://www.$word{\"delimiter\":\"-\", \"limit\": 2}.com",
                         "phoneExtension": "$pickone{\"items\": \"+11|+44|+99\"}"
                     }
                 },
@@ -44,16 +51,12 @@ describe('Mocking server tests:', function() {
                 "singleObject": {
                     "type": "object",
                     "struct": {
-                        "foo": "$integer",
+                        "number": "$integer",
                         "name": "$word"
                     }
                 }
             }
         };
-
-        console.log(obj);
-
-        // console.log('json transformed output', random.fromMock(random, obj));
 
         it('should return an object', function () {
             expect(random.fromObject(random, obj))
@@ -62,6 +65,13 @@ describe('Mocking server tests:', function() {
         });
     });
 
+
+    /**
+     * [describe description]
+     * 
+     * @param  {[type]} 'fromMock( [description]
+     * @return {[type]}            [description]
+     */
     describe('fromMock() paginated collection', function () {
 
         var obj = {
@@ -98,7 +108,6 @@ describe('Mocking server tests:', function() {
             }
         };
 
-        // console.log('json transformed output', random.fromMock(random, obj));
 
         it('should return a collection that contains 12 objects', function () {
             expect(random.fromMock(random, obj))

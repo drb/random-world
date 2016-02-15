@@ -1,55 +1,17 @@
 /*jslint node: true */
 "use strict";
 
-var _ = require('underscore'),
-    util = require('util');
-
-var RandomWorld = function () {
-
-    this.methods = {};
-};
-
-//
-_.extend(RandomWorld.prototype, {
-
-    heoo: function () {
-
-        return this.methods;
-    },
-
-    register: function (instance) {
-
-        var publicInterface = instance.getInterface(),
-            namespace       = publicInterface.name,
-            methods         = publicInterface.methods;
-
-        this.methods[namespace] = instance;
-
-        this.__defineGetter__(namespace, function(){
-            return instance;
-        });
-
-        _.each(methods, function(name) {
-            var extend     = {};
-            extend[name]   = function(args) {
-                // console.warn("*** [depreciation warning] Direct method invocation will be depreciated in future releases. Use random.%s.%s() instead.", namespace, name);
-                return instance[name](args);
-            };
-
-            _.extend(this, extend);
-
-        }, this);
-
-        instance.foo(this.heoo());
-    }
-});
-
 /**
- * [description]
+ * randomWorldFactory
+ *
  * @param  {[type]} ) { var names [description]
  * @return {[type]}   [description]
  */
-var randomWorldFactory = (function () {
+var // proxy class
+    Proxy = require('./lib/random-world-proxy'),
+
+    // factory
+    randomWorldFactory  = (function () {
 
     var _           = require('underscore'),
         fs          = require('fs'),
@@ -58,12 +20,7 @@ var randomWorldFactory = (function () {
         cwd         = __dirname,
 
         // the return sig
-        world = new RandomWorld(),
-        // world   = new Proxy({}, {
-        //     get: function (target, property) {
-        //         console.log(target, property);
-        //     }
-        // }),
+        world = new Proxy(),
 
         // various load configs
         libFilter   = '.js',
@@ -102,14 +59,6 @@ var randomWorldFactory = (function () {
         //
         world.register(new Instance());
     }
-
-    //
-    // console.log('inline namepsace networkl', world.network.domain());
-    // console.log('inline namepsace string', world.strings.word());
-    // console.log('inline namepsace string', world.strings.sentence());
-    //
-    // console.log('inline networkl', world.domain());
-    // console.log('inline string', world.word());
 
     return world;
 

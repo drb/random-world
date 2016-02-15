@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             },
             // specific tests for momdules being refactored
             refactor: {
-                src: ['tests/mock-server.tests.js']
+                src: ['tests/number.tests.js']
             }
         }
     });
