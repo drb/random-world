@@ -4,6 +4,9 @@
 /**
  * randomWorldFactory
  *
+ * @todo ROADMAP support plugins - users can specify a directory of plugins that
+ * provide random world methods, or overwrite existing features
+ *
  * @param  {[type]} ) { var names [description]
  * @return {[type]}   [description]
  */
@@ -45,7 +48,7 @@ var // proxy class
     });
 
     /**
-     * registers the methods in the library in the sig of this factory
+     * registers the method plugin in the sig of this factory
      *
      * @param  {[type]} lib [description]
      * @return {[type]}     [description]
@@ -56,7 +59,7 @@ var // proxy class
             methodContainer  = require(path.resolve(libPath, lib)),
             Instance         = methodContainer;
 
-        //
+        // register the preset plugin
         world.register(new Instance());
     }
 
