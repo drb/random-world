@@ -18,10 +18,6 @@ module.exports = function(grunt) {
             // all tests
             all: {
                 src: ['tests/*.js']
-            },
-            // specific tests for momdules being refactored
-            refactor: {
-                src: ['tests/number.tests.js']
             }
         }
     });

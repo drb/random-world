@@ -11,7 +11,6 @@ describe('Network tests:', function() {
     describe('domain()', function () {
         it('should return a fully qualified domain', function () {
             var domain = random.network.domain();
-            // console.log('DOMAIN', domain);
             expect(domain).to.be.a('string');
         });
     });
@@ -24,8 +23,12 @@ describe('Network tests:', function() {
 
     describe('ip()', function () {
         it('should return a random ip', function () {
+
             var ip = random.network.ip();
-            expect(ip).to.be.a('string');
+
+            expect(ip)
+                .to.be.a('string')
+                .to.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/)
         });
     });
 
