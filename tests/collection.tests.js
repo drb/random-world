@@ -4,7 +4,7 @@ var _ = require('underscore'),
 
 /**
  * Array tests
- * 
+ *
  * @return {[type]}   [description]
  */
 describe('Array tests:', function() {
@@ -12,19 +12,19 @@ describe('Array tests:', function() {
     describe('array()', function () {
 
         it('should return an array with a random length between 1-12', function () {
-            expect(random.array())
+            expect(random.collections.array())
                 .to.be.a('array');
         });
 
         it('should return an array 10 items long', function () {
-            expect(random.array({limit: 10}))
+            expect(random.collections.array({limit: 10}))
                 .to.be.a('array')
                 .to.have.length(10);
         });
 
         it('should return a random item from a known set of items', function () {
             var items = "foo, bar, baz, one, two > one, three, a more complex string...",
-                item = random.pickone({items: items, delimiter: ", "});
+                item = random.collections.pickone({items: items, delimiter: ", "});
 
             expect(item)
                 .to.be.a('string')

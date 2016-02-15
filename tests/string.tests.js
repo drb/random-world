@@ -10,8 +10,8 @@ describe('String tests:', function() {
 
     describe('sentence()', function () {
         it('should return a sentence from lorem ipsum', function () {
-            var sentence = random.sentence();
-            // var sentence1 = random.strings.sentence();
+            var sentence = random.strings.sentence();
+            // var sentence1 = random.strings.strings.sentence();
             // console.log("ONE", sentence);
             // console.log("TWO", sentence1);
             expect(sentence).to.be.a('string');
@@ -20,7 +20,7 @@ describe('String tests:', function() {
 
     describe('random()', function () {
         it('should return a random string that is 20 chars long', function () {
-            var string = random.random({len: 20});
+            var string = random.strings.random({len: 20});
             // console.log(string);
             expect(string)
                 .to.be.a('string')
@@ -30,7 +30,7 @@ describe('String tests:', function() {
 
     describe('word()', function () {
         it('should return a random word', function () {
-            var word = random.word();
+            var word = random.strings.word();
             // console.log(word);
             expect(word)
                 .to.be.a('string');
@@ -42,7 +42,7 @@ describe('String tests:', function() {
             var options = {
                     charcase: 'upper'
                 },
-                word = random.word(options);
+                word = random.strings.word(options);
 
             expect(word)
                 .to.be.a('string')
@@ -56,7 +56,7 @@ describe('String tests:', function() {
             var options = {
                     charcase: 'lower'
                 },
-                word = random.word(options);
+                word = random.strings.word(options);
 
             expect(word)
                 .to.be.a('string')
@@ -70,7 +70,7 @@ describe('String tests:', function() {
             var options = {
                     charcase: 'sentence'
                 },
-                word = random.word(options);
+                word = random.strings.word(options);
 
             expect(word)
                 .to.be.a('string')
@@ -88,7 +88,7 @@ describe('String tests:', function() {
             expect(
                 // use anonymous function when trapping exceptions
                 function() {
-                    random.word(options);
+                    random.strings.word(options);
                 }
             ).to.throw(Error);
         });
@@ -100,7 +100,7 @@ describe('String tests:', function() {
             var options = {
                     blockSize: '345'
                 },
-                block = random.block(options);
+                block = random.strings.block(options);
 
             expect(block)
                 .to.be.a('string')
@@ -115,7 +115,7 @@ describe('String tests:', function() {
                     delimiter: ':',
                     chars: 'ABC'
                 },
-                block = random.block(options);
+                block = random.strings.block(options);
 
             expect(block)
                 .to.be.a('string')

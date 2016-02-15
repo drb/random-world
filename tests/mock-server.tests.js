@@ -59,7 +59,7 @@ describe('Mocking server tests:', function() {
         };
 
         it('should return an object', function () {
-            expect(random.fromObject(random, obj))
+            expect(random.object.fromObject(random, obj))
                 .to.be.a('object')
                 .to.have.all.keys('firstName', 'lastName', 'age', 'companies', 'someArray', 'block', 'statuses', 'array', 'singleObject', 'ext');
         });
@@ -68,7 +68,7 @@ describe('Mocking server tests:', function() {
 
     /**
      * [describe description]
-     * 
+     *
      * @param  {[type]} 'fromMock( [description]
      * @return {[type]}            [description]
      */
@@ -110,7 +110,7 @@ describe('Mocking server tests:', function() {
 
 
         it('should return a collection that contains 12 objects', function () {
-            expect(random.fromMock(random, obj))
+            expect(random.object.fromMock(random, obj))
                 .to.be.a('array')
                 .to.have.length(12);
         });
