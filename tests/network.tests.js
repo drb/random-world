@@ -15,6 +15,13 @@ describe('Network tests:', function() {
         });
     });
 
+    describe('domain() with none standard TLD', function () {
+        it('should return a fully qualified domain with a TLD that may or may not look common', function () {
+            var domain = random.network.domain({standard: false});
+            expect(domain).to.be.a('string');
+        });
+    });
+
     describe('tld()', function () {
         it('should return a top level domain', function () {
             expect(random.network.tld()).to.be.a('string');
@@ -28,7 +35,7 @@ describe('Network tests:', function() {
 
             expect(ip)
                 .to.be.a('string')
-                .to.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/)
+                .to.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/);
         });
     });
 
