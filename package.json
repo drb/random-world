@@ -28,7 +28,9 @@
     "mocha": "^2.2.5"
   },
   "dependencies": {
+    "moment": "^2.11.2",
     "seedrandom": "^2.4.2",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
   }
 }

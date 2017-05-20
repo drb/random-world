@@ -122,4 +122,15 @@ describe('String tests:', function() {
                 .to.match(/([A-C]){3}\:([A-C]){4}\:([A-C]){5}/);
         });
     });
+
+    describe('uuid()', function () {
+        it('should return an v4 uuid', function () {
+            var options = {},
+                uuid = random.strings.uuid(options);
+
+            expect(uuid)
+                .to.be.a('string')
+                .to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+        });
+    });
 });

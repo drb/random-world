@@ -82,7 +82,7 @@ Returns random file extensions
 
 * `random.extension()` - A random file extension.
   * `includeDot` - Returns a dot prefix for the extension (i.e. .png vs png).
-  
+
 ---
 
 ### Geography
@@ -168,7 +168,8 @@ String patterns.
   * `charCase` - Transform the word to upper or lowercase.
     * `upper|lower`
   * `limit` - Number of words to return. Defaults to 1.
-  
+* `random.uuid()` - A v4 UUID.
+
 ---
 
 ### Truth
@@ -213,7 +214,7 @@ Supported card types.
 
 ### Objects
 
-* `random.fromObject()` - Parses an object for placeholders that represent `random-world` methods. 
+* `random.fromObject()` - Parses an object for placeholders that represent `random-world` methods.
 
 ```
 {
