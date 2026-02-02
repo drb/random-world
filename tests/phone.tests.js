@@ -83,7 +83,7 @@ describe('Phone tests:', function() {
                 let digit = parseInt(imei[i], 10);
                 if (i % 2 === 1) {
                     digit *= 2;
-                    if (digit > 9) digit -= 9;
+                    if (digit > 9) {digit -= 9;}
                 }
                 sum += digit;
             }
