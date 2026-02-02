@@ -48,4 +48,13 @@ describe('Network tests:', function() {
         });
     });
 
+    describe('ipv6()', function () {
+        it('should return a random IPv6 address', function () {
+            const ipv6 = random.network.ipv6();
+            expect(ipv6)
+                .to.be.a('string')
+                .to.match(/^[0-9a-f]{4}(:[0-9a-f]{4}){7}$/);
+        });
+    });
+
 });

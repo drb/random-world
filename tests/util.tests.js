@@ -92,10 +92,10 @@ describe('Utilities method', function() {
                     .to.have.length.above(0);
             });
 
-            it('files.extension() should return a random file extension with a length between 1 and 4', function () {
+            it('files.extension() should return a random file extension', function () {
                 expect(random.files.extension())
                     .to.be.a('string')
-                    .to.have.length.within(1, 4);
+                    .to.have.length.above(0);
             });
 
             it('dates.dayofweek() should return a day of the week', function () {

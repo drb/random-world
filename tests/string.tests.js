@@ -133,4 +133,36 @@ describe('String tests:', function() {
                 .to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
         });
     });
+
+    describe('hash()', function () {
+        it('should return a hash-like hex string (SHA256 length by default)', function () {
+            const hash = random.strings.hash();
+            expect(hash).to.be.a('string');
+            expect(hash).to.match(/^[0-9a-f]{64}$/);
+        });
+    });
+
+    describe('hash({ type: "md5" })', function () {
+        it('should return an MD5-length hash string', function () {
+            const hash = random.strings.hash({ type: 'md5' });
+            expect(hash).to.be.a('string');
+            expect(hash).to.match(/^[0-9a-f]{32}$/);
+        });
+    });
+
+    describe('slug()', function () {
+        it('should return a URL-friendly slug', function () {
+            const slug = random.strings.slug();
+            expect(slug).to.be.a('string');
+            expect(slug).to.match(/^[a-z]+(-[a-z]+)*$/);
+        });
+    });
+
+    describe('slug({ wordCount: 3 })', function () {
+        it('should return a slug with exactly 3 words', function () {
+            const slug = random.strings.slug({ wordCount: 3 });
+            expect(slug).to.be.a('string');
+            expect(slug.split('-').length).to.equal(3);
+        });
+    });
 });

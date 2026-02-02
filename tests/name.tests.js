@@ -148,4 +148,42 @@ describe('Name tests:', function() {
                 .to.have.string('+');
         });
     });
+
+    describe('suffix()', function () {
+        it('should return a post-nominal suffix', function () {
+            const suffix = random.names.suffix();
+            expect(suffix).to.be.a('string');
+            expect(suffix.length).to.be.greaterThan(0);
+        });
+    });
+
+    describe('suffix({ type: "doctorate" })', function () {
+        it('should return a doctorate suffix', function () {
+            const suffix = random.names.suffix({ type: 'doctorate' });
+            expect(suffix).to.be.a('string');
+            expect(['PhD', 'DPhil', 'DBEnv', 'DREst', 'EdD', 'DLitt', 'DSocSci', 'EngD', 'DD', 'LLD', 'DProf', 'DCL']).to.include(suffix);
+        });
+    });
+
+    describe('suffix({ type: "masters" })', function () {
+        it('should return a masters suffix', function () {
+            const suffix = random.names.suffix({ type: 'masters' });
+            expect(suffix).to.be.a('string');
+        });
+    });
+
+    describe('middleName()', function () {
+        it('should return a middle name', function () {
+            const name = random.names.middleName();
+            expect(name).to.be.a('string');
+            expect(name.length).to.be.greaterThan(0);
+        });
+    });
+
+    describe('middleName({ gender: "male" })', function () {
+        it('should return a male middle name', function () {
+            const name = random.names.middleName({ gender: 'male' });
+            expect(name).to.be.a('string');
+        });
+    });
 });

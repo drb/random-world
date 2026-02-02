@@ -37,5 +37,47 @@ describe('Places tests:', function() {
                 .to.be.a('string')
                 .to.have.length(2);
         });
+
+        it('state() should return a US state name', function () {
+            const state = random.places.state();
+            expect(state)
+                .to.be.a('string')
+                .to.have.length.above(0);
+        });
+
+        it('state({ abbreviated: true }) should return a state abbreviation', function () {
+            const abbr = random.places.state({ abbreviated: true });
+            expect(abbr)
+                .to.be.a('string')
+                .to.have.length(2);
+        });
+
+        it('state({ country: "CA" }) should return a Canadian province', function () {
+            const province = random.places.state({ country: 'CA' });
+            expect(province)
+                .to.be.a('string')
+                .to.have.length.above(0);
+        });
+
+        it('postalCode() should return a US ZIP code', function () {
+            const zip = random.places.postalCode();
+            expect(zip)
+                .to.be.a('string')
+                .to.match(/^\d{5}$/);
+        });
+
+        it('postalCode({ country: "CA" }) should return a Canadian postal code', function () {
+            const postal = random.places.postalCode({ country: 'CA' });
+            expect(postal)
+                .to.be.a('string')
+                .to.match(/^[A-Z]\d[A-Z] \d[A-Z]\d$/);
+        });
+
+        it('fullAddress() should return a complete address string', function () {
+            const address = random.places.fullAddress();
+            expect(address)
+                .to.be.a('string')
+                .to.have.length.above(10);
+        });
     });
 });

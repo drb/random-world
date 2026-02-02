@@ -77,4 +77,76 @@ describe('Date tests:', function() {
         });
     });
 
+    describe('time()', function () {
+        it('should return a time string', function () {
+            const time = random.dates.time();
+            expect(time)
+                .to.be.a('string')
+                .to.match(/^\d{2}:\d{2}:\d{2}$/);
+        });
+    });
+
+    describe('hour()', function () {
+        it('should return an hour (0-23)', function () {
+            const hour = random.dates.hour();
+            expect(hour)
+                .to.be.a('number')
+                .to.be.within(0, 23);
+        });
+    });
+
+    describe('hour({ format24: false })', function () {
+        it('should return an hour in 12-hour format (1-12)', function () {
+            const hour = random.dates.hour({ format24: false });
+            expect(hour)
+                .to.be.a('number')
+                .to.be.within(1, 12);
+        });
+    });
+
+    describe('minute()', function () {
+        it('should return a minute (0-59)', function () {
+            const minute = random.dates.minute();
+            expect(minute)
+                .to.be.a('number')
+                .to.be.within(0, 59);
+        });
+    });
+
+    describe('second()', function () {
+        it('should return a second (0-59)', function () {
+            const second = random.dates.second();
+            expect(second)
+                .to.be.a('number')
+                .to.be.within(0, 59);
+        });
+    });
+
+    describe('isoDate()', function () {
+        it('should return an ISO 8601 date string', function () {
+            const isoDate = random.dates.isoDate();
+            expect(isoDate)
+                .to.be.a('string')
+                .to.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+        });
+    });
+
+    describe('isoDate({ includeTime: false })', function () {
+        it('should return a date-only ISO string', function () {
+            const isoDate = random.dates.isoDate({ includeTime: false });
+            expect(isoDate)
+                .to.be.a('string')
+                .to.match(/^\d{4}-\d{2}-\d{2}$/);
+        });
+    });
+
+    describe('timezone()', function () {
+        it('should return a timezone identifier', function () {
+            const tz = random.dates.timezone();
+            expect(tz)
+                .to.be.a('string')
+                .to.have.length.above(0);
+        });
+    });
+
 });
