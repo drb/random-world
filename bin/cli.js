@@ -174,7 +174,7 @@ function main() {
             break;
         case 'csv':
             // For CSV, wrap simple values in objects
-            const csvData = data.map((item, index) => {
+            const csvData = data.map((item, _index) => {
                 if (typeof item === 'object' && item !== null) {
                     return item;
                 }
@@ -183,7 +183,7 @@ function main() {
             output = formatters.csv(csvData);
             break;
         case 'sql':
-            const sqlData = data.map((item, index) => {
+            const sqlData = data.map((item, _index) => {
                 if (typeof item === 'object' && item !== null) {
                     return item;
                 }

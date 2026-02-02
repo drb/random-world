@@ -5,7 +5,7 @@
  */
 
 import { fileURLToPath } from 'url';
-import { dirname, join, extname, basename, resolve } from 'path';
+import { dirname, join, extname, resolve } from 'path';
 import { readdirSync } from 'fs';
 
 import RandomWorld from './lib/random-world-proxy.js';
@@ -26,7 +26,6 @@ const libraries = readdirSync(libPath);
 for (const lib of libraries) {
     if (extname(lib) === libFilter) {
         try {
-            const moduleName = basename(lib, libFilter);
             const modulePath = join(libPath, lib);
             const { default: MethodClass } = await import(modulePath);
 
