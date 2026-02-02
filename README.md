@@ -1,6 +1,6 @@
 # Random World
 
-[![npm version](https://badge.fury.io/js/random-world.svg)](http://badge.fury.io/js/random-world)
+[![npm version](https://img.shields.io/npm/v/random-world.svg)](https://www.npmjs.com/package/random-world)
 
 A Node.js module for generating random data. Built for usage with mock servers, testing, and data generation pipelines.
 
