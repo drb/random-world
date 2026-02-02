@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * String tests
@@ -10,7 +10,7 @@ describe('String tests:', function() {
 
     describe('sentence()', function () {
         it('should return a sentence from lorem ipsum', function () {
-            var sentence = random.strings.sentence();
+            const sentence = random.strings.sentence();
             // var sentence1 = random.strings.strings.sentence();
             // console.log("ONE", sentence);
             // console.log("TWO", sentence1);
@@ -20,7 +20,7 @@ describe('String tests:', function() {
 
     describe('random()', function () {
         it('should return a random string that is 20 chars long', function () {
-            var string = random.strings.random({len: 20});
+            const string = random.strings.random({len: 20});
             // console.log(string);
             expect(string)
                 .to.be.a('string')
@@ -30,7 +30,7 @@ describe('String tests:', function() {
 
     describe('word()', function () {
         it('should return a random word', function () {
-            var word = random.strings.word();
+            const word = random.strings.word();
             // console.log(word);
             expect(word)
                 .to.be.a('string');
@@ -39,7 +39,7 @@ describe('String tests:', function() {
 
     describe('word() uppercase', function () {
         it('should return an [UPPERCASE] random word', function () {
-            var options = {
+            const options = {
                     charcase: 'upper'
                 },
                 word = random.strings.word(options);
@@ -53,7 +53,7 @@ describe('String tests:', function() {
 
     describe('word() lowercase', function () {
         it('should return an [lowercase] random word', function () {
-            var options = {
+            const options = {
                     charcase: 'lower'
                 },
                 word = random.strings.word(options);
@@ -67,7 +67,7 @@ describe('String tests:', function() {
 
     describe('word() sentence case', function () {
         it('should return a [Sentence Case] random word', function () {
-            var options = {
+            const options = {
                     charcase: 'sentence'
                 },
                 word = random.strings.word(options);
@@ -81,7 +81,7 @@ describe('String tests:', function() {
 
     describe('French word()', function () {
         it('should raise an exception as the language is not supported', function () {
-            var options = {
+            const options = {
                 language: 'French'
             };
 
@@ -97,7 +97,7 @@ describe('String tests:', function() {
 
     describe('block()', function () {
         it('should return an alphanumeric block of characters corresponding to the pattern XXX-XXXX-XXXXX', function () {
-            var options = {
+            const options = {
                     blockSize: '345'
                 },
                 block = random.strings.block(options);
@@ -110,7 +110,7 @@ describe('String tests:', function() {
 
     describe('block() with custom delimiter and characterset limit', function () {
         it('should return an block of characters limited to A, B, C corresponding to the pattern XXX:XXXX:XXXXX', function () {
-            var options = {
+            const options = {
                     blockSize: '345',
                     delimiter: ':',
                     chars: 'ABC'
@@ -125,7 +125,7 @@ describe('String tests:', function() {
 
     describe('uuid()', function () {
         it('should return an v4 uuid', function () {
-            var options = {},
+            const options = {},
                 uuid = random.strings.uuid(options);
 
             expect(uuid)

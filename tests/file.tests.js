@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * String tests

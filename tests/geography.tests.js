@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * Geography tests
@@ -11,7 +11,7 @@ describe('Geography tests:', function() {
     describe('latlong()', function () {
 
         it('should return an object with a two keys, lat and long', function () {
-            var latlong = random.geo.latlong();
+            const latlong = random.geo.latlong();
             expect(latlong)
                 .to.be.a('object')
                 .to.have.keys('lat', 'long');

@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * name tests
@@ -10,14 +10,14 @@ describe('Network tests:', function() {
 
     describe('domain()', function () {
         it('should return a fully qualified domain', function () {
-            var domain = random.network.domain();
+            const domain = random.network.domain();
             expect(domain).to.be.a('string');
         });
     });
 
     describe('domain() with none standard TLD', function () {
         it('should return a fully qualified domain with a TLD that may or may not look common', function () {
-            var domain = random.network.domain({standard: false});
+            const domain = random.network.domain({standard: false});
             expect(domain).to.be.a('string');
         });
     });
@@ -31,7 +31,7 @@ describe('Network tests:', function() {
     describe('ip()', function () {
         it('should return a random ip', function () {
 
-            var ip = random.network.ip();
+            const ip = random.network.ip();
 
             expect(ip)
                 .to.be.a('string')
@@ -41,7 +41,7 @@ describe('Network tests:', function() {
 
     describe('ip()', function () {
         it('should return a random ip with a mask', function () {
-            var ip = random.network.ip({mask: true});
+            const ip = random.network.ip({mask: true});
             expect(ip)
                 .to.be.a('string')
                 .to.have.string('/');

@@ -1,6 +1,6 @@
-var expect = require('chai').expect,
-    random = require('../index'),
-    utils  = require('../lib/utils/utilities');
+import { expect } from 'chai';
+import random from '../index.js';
+import utils from '../lib/utils/utilities.js';
 
 /**
  * Money tests
@@ -12,14 +12,14 @@ describe('Money tests:', function() {
     describe('Money methods', function () {
 
         it('ccnumber() should return a credit card number (unvalidated)', function () {
-            var ccnumber = random.money.ccnumber();
+            const ccnumber = random.money.ccnumber();
             expect(ccnumber)
                 .to.be.a('string')
                 .to.have.length.above(0);
         });
 
         it('ccnumber() should return a credit card number (unvalidated), separated by hypens every 4 digits', function () {
-            var ccnumber = random.money.ccnumber({
+            const ccnumber = random.money.ccnumber({
                 hasHyphens: false
             });
             expect(ccnumber)
@@ -30,8 +30,8 @@ describe('Money tests:', function() {
 
         it('ccnumber() should create 1000 CC numbers and validate them all against utils\' MOD 10 check', function () {
             expect(function() {
-                var ccnumber;
-                for (var i = 0; i < 1000; i++) {
+                let ccnumber;
+                for (let i = 0; i < 1000; i++) {
                     ccnumber = random.money.ccnumber();
                     if (!utils.luhnModCheck(ccnumber.toString())) {
                         throw new Error('Failed checksum check on ' + ccnumber);
@@ -43,15 +43,15 @@ describe('Money tests:', function() {
 
         it('ccnumber() should return a MasterCard credit card number that passes strict checking', function () {
             expect(function() {
-                var ccnumber = random.money.ccnumber({
+                const ccnumber = random.money.ccnumber({
                     shortName: 'MC'
-                }),
-                mcStartsWith = [51, 52, 53, 54, 55], // must start with one of these strings
-                mcMatchesOne = false;
+                });
+                const mcStartsWith = [51, 52, 53, 54, 55]; // must start with one of these strings
+                let mcMatchesOne = false;
 
                 // ensure one of the starting numbers matches
                 mcStartsWith.forEach(function(starts) {
-                    if (ccnumber.substr(0, 2) == starts) {
+                    if (ccnumber.substr(0, 2) === starts.toString()) {
                         mcMatchesOne = true;
                     }
                 });
@@ -62,7 +62,7 @@ describe('Money tests:', function() {
                 }
 
                 // error out, string doesn't match allowed length
-                if (ccnumber.length != 16 && ccnumber.length != 19) {
+                if (ccnumber.length !== 16 && ccnumber.length !== 19) {
                     throw new Error('Number does not start with allowed series.');
                 }
 
@@ -74,14 +74,14 @@ describe('Money tests:', function() {
         });
 
         it('cctype() should return a credit card type', function () {
-            var ccType = random.money.cctype();
+            const ccType = random.money.cctype();
             expect(ccType)
                 .to.be.a('string')
                 .to.have.length.above(0);
         });
 
         it('ccstart() should return a credit card start date', function () {
-            var ccStartDate = random.money.ccstart();
+            const ccStartDate = random.money.ccstart();
             expect(ccStartDate)
                 .to.be.a('string')
                 .to.have.length.above(0)
@@ -89,7 +89,7 @@ describe('Money tests:', function() {
         });
 
         it('ccenddate() should return a credit card expiry date', function () {
-            var ccEndDate = random.money.ccexpiry();
+            const ccEndDate = random.money.ccexpiry();
             expect(ccEndDate)
                 .to.be.a('string')
                 .to.have.length.above(0)
@@ -97,7 +97,7 @@ describe('Money tests:', function() {
         });
 
         it('cvv() should return a credit card CV2 value', function () {
-            var cv2 = random.money.cvv();
+            const cv2 = random.money.cvv();
             expect(cv2)
                 .to.be.a('string')
                 .to.have.length(3)

@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * name tests
@@ -67,6 +67,57 @@ describe('Name tests:', function() {
         });
     });
 
+    describe('firstname({ gender: "male" })', function () {
+        it('should return a male first name', function () {
+            expect(random.names.firstname({ gender: 'male' }))
+                .to.be.a('string');
+        });
+    });
+
+    describe('firstname({ gender: "female" })', function () {
+        it('should return a female first name', function () {
+            expect(random.names.firstname({ gender: 'female' }))
+                .to.be.a('string');
+        });
+    });
+
+    describe('firstname({ gender: "nonbinary" })', function () {
+        it('should return a nonbinary/gender-neutral first name', function () {
+            expect(random.names.firstname({ gender: 'nonbinary' }))
+                .to.be.a('string');
+        });
+    });
+
+    describe('title()', function () {
+        it('should return a title', function () {
+            expect(random.names.title())
+                .to.be.a('string');
+        });
+    });
+
+    describe('title({ gender: "male" })', function () {
+        it('should return a male-appropriate title (Mr, Master, Dr, Professor)', function () {
+            const title = random.names.title({ gender: 'male' });
+            expect(title).to.be.a('string');
+            expect(['Mr', 'Master', 'Dr', 'Professor']).to.include(title);
+        });
+    });
+
+    describe('title({ gender: "female" })', function () {
+        it('should return a female-appropriate title (Miss, Mrs, Ms, Dr, Professor)', function () {
+            const title = random.names.title({ gender: 'female' });
+            expect(title).to.be.a('string');
+            expect(['Miss', 'Mrs', 'Ms', 'Dr', 'Professor']).to.include(title);
+        });
+    });
+
+    describe('title({ gender: "nonbinary" })', function () {
+        it('should return a nonbinary-appropriate title (Mx, Dr, Professor)', function () {
+            const title = random.names.title({ gender: 'nonbinary' });
+            expect(title).to.be.a('string');
+            expect(['Mx', 'Dr', 'Professor']).to.include(title);
+        });
+    });
 
     describe('email', function () {
         it('should return an email address', function () {
@@ -88,7 +139,7 @@ describe('Name tests:', function() {
 
     describe('email', function () {
         it('should return a lowercase email address with a plus address included', function () {
-            var address = random.names.email({hasDot: true, 'charcase': 'lower', hasPlusAddress: true, standard: false});
+            const address = random.names.email({hasDot: true, 'charcase': 'lower', hasPlusAddress: true, standard: false});
             // console.log(address);
             expect(address)
                 .to.be.a('string')

@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * date tests
@@ -36,7 +36,7 @@ describe('Date tests:', function() {
 
     describe('dayofweek()', function () {
         it('should return a day of the week', function () {
-            var dayOfWeek = random.dates.dayofweek();
+            const dayOfWeek = random.dates.dayofweek();
             expect(dayOfWeek)
                 .to.be.a('string');
         });
@@ -44,7 +44,7 @@ describe('Date tests:', function() {
 
     describe('dayofweek()', function () {
         it('should return a day of the week, in short form', function () {
-            var dayOfWeek = random.dates.dayofweek({short: true});
+            const dayOfWeek = random.dates.dayofweek({short: true});
             expect(dayOfWeek)
                 .to.be.a('string')
                 .to.have.length(3);
@@ -54,7 +54,7 @@ describe('Date tests:', function() {
 
     describe('month()', function () {
         it('should return a month', function () {
-            var month = random.dates.month();
+            const month = random.dates.month();
             expect(month)
                 .to.be.a('string');
         });
@@ -62,7 +62,7 @@ describe('Date tests:', function() {
 
     describe('month()', function () {
         it('should return a month, in short form', function () {
-            var month = random.dates.month({short: true});
+            const month = random.dates.month({short: true});
             expect(month)
                 .to.be.a('string')
                 .to.have.length(3);
@@ -71,7 +71,7 @@ describe('Date tests:', function() {
 
      describe('year()', function () {
         it('should return a year', function () {
-            var year = random.dates.year();
+            const year = random.dates.year();
             expect(year)
                 .to.be.a('number');
         });

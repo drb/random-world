@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    random = require('../index');
+import { expect } from 'chai';
+import random from '../index.js';
 
 /**
  * number tests
@@ -48,7 +48,7 @@ describe('Number tests:', function() {
 
     describe('sum()', function () {
         it('should return a random range of 9 numbers that sum to 101', function () {
-            var options = {
+            const options = {
                     max: 101,
                     count: 9
                 },
@@ -58,8 +58,8 @@ describe('Number tests:', function() {
                 .to.be.a('array')
                 .to.have.length(options.count)
                 .to.satisfy(function(arr) {
-                    var sum = 0;
-                    for (var j = 0; j < arr.length; j++) {
+                    let sum = 0;
+                    for (let j = 0; j < arr.length; j++) {
                         sum += arr[j];
                     }
                     return sum === options.max;
@@ -69,7 +69,7 @@ describe('Number tests:', function() {
 
     describe('integer() with negative value', function () {
         it('should return a number less than 0', function () {
-            var int = random.numbers.integer({min: -999999, max: 0, round: true});
+            const int = random.numbers.integer({min: -999999, max: 0, round: true});
             expect(int)
                 .to.be.a('number')
                 .to.be.below(0);
@@ -78,7 +78,7 @@ describe('Number tests:', function() {
 
     describe('integer() with negative value between specific values', function () {
         it('should return a number between -1000 and -677', function () {
-            var int = random.numbers.integer({min: -1000, max: -677, round: true});
+            const int = random.numbers.integer({min: -1000, max: -677, round: true});
             expect(int)
                 .to.be.a('number')
                 .to.be.within(-1000, -677);

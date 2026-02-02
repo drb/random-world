@@ -1,70 +1,46 @@
-/*jslint node: true */
-"use strict";
-
 /**
- * randomWorldFactory
+ * random-world
  *
- * @todo ROADMAP support plugins - users can specify a directory of plugins that
- * provide random world methods, or overwrite existing features
- *
- * @param  {[type]} ) { var names [description]
- * @return {[type]}   [description]
+ * A Node.js module to generate random collections of data
  */
-var // proxy class
-    Proxy = require('./lib/random-world-proxy'),
 
-    // factory
-    randomWorldFactory  = (function () {
+import { fileURLToPath } from 'url';
+import { dirname, join, extname, basename, resolve } from 'path';
+import { readdirSync } from 'fs';
 
-    var _           = require('underscore'),
-        fs          = require('fs'),
-        path        = require('path'),
-        util        = require('util'),
-        cwd         = __dirname,
+import RandomWorld from './lib/random-world-proxy.js';
 
-        // the return sig
-        world = new Proxy(),
+// Get current directory in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-        // various load configs
-        libFilter   = '.js',
-        libPath     = path.resolve(path.join(cwd, 'lib/methods')),
-        libraries   = fs.readdirSync(path.normalize(libPath));
+// Create the random world instance
+const world = new RandomWorld();
 
-    /**
-     * collate the libs and add them to the factory output
-     *
-     * @param  {[type]} lib){       if (path.extname(lib) [description]
-     * @return {[type]}            [description]
-     */
-    libraries.forEach(function(lib) {
+// Load method modules
+const libFilter = '.js';
+const libPath = resolve(join(__dirname, 'lib/methods'));
+const libraries = readdirSync(libPath);
 
-        if (path.extname(lib) === libFilter) {
-            try {
-                register(lib);
-            } catch (e) {
-                console.error(e);
+// Register each method module
+for (const lib of libraries) {
+    if (extname(lib) === libFilter) {
+        try {
+            const moduleName = basename(lib, libFilter);
+            const modulePath = join(libPath, lib);
+            const { default: MethodClass } = await import(modulePath);
+
+            if (MethodClass && typeof MethodClass === 'function') {
+                world.register(new MethodClass());
             }
+        } catch (e) {
+            console.error(`Error loading module ${lib}:`, e);
         }
-    });
-
-    /**
-     * registers the method plugin in the sig of this factory
-     *
-     * @param  {[type]} lib [description]
-     * @return {[type]}     [description]
-     */
-    function register(lib) {
-
-        var moduleName       = path.basename(lib, libFilter),
-            methodContainer  = require(path.resolve(libPath, lib)),
-            Instance         = methodContainer;
-
-        // register the preset plugin
-        world.register(new Instance());
     }
+}
 
-    return world;
+export default world;
 
-})();
-
-module.exports = randomWorldFactory;
+// Named exports for convenience
+export { RandomWorld };
+export { RandomWorldError, ValidationError, NotFoundError, ConfigurationError } from './lib/errors.js';
