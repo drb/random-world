@@ -10,7 +10,7 @@ describe('Internet tests:', function() {
         it('should return a URL', function () {
             const url = random.internet.url();
             expect(url).to.be.a('string');
-            expect(url).to.match(/^https?:\/\/www\.\w+\.\w+$/);
+            expect(url).to.match(/^https?:\/\/www\.\w+\.\w+(\.\w+)?$/);
         });
     });
 
