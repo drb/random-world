@@ -63,7 +63,10 @@ Methods:
   names.email          Generate a random email address
   network.ip           Generate a random IP address
   network.ipv6         Generate a random IPv6 address
-  network.domain       Generate a random domain
+  network.mac          Generate a random MAC address
+  network.port         Generate a random port number
+  internet.url         Generate a random URL
+  internet.domain      Generate a random domain
   numbers.integer      Generate a random integer
   strings.uuid         Generate a UUID
   places.city          Generate a random city

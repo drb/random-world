@@ -2,9 +2,69 @@ import { expect } from 'chai';
 import random from '../index.js';
 
 /**
- * Internet tests
+ * Internet tests - higher-level application concepts (OSI layer 7)
  */
 describe('Internet tests:', function() {
+
+    describe('url()', function () {
+        it('should return a URL', function () {
+            const url = random.internet.url();
+            expect(url).to.be.a('string');
+            expect(url).to.match(/^https?:\/\/www\.\w+\.\w+$/);
+        });
+    });
+
+    describe('url({ protocol: "https" })', function () {
+        it('should return an HTTPS URL', function () {
+            const url = random.internet.url({ protocol: 'https' });
+            expect(url).to.be.a('string');
+            expect(url).to.match(/^https:\/\//);
+        });
+    });
+
+    describe('url({ port: 8080 })', function () {
+        it('should return a URL with specific port', function () {
+            const url = random.internet.url({ port: 8080 });
+            expect(url).to.be.a('string');
+            expect(url).to.include(':8080');
+        });
+    });
+
+    describe('url({ port: "common" })', function () {
+        it('should return a URL with a common service port', function () {
+            const url = random.internet.url({ port: 'common' });
+            expect(url).to.be.a('string');
+            expect(url).to.match(/:\d+$/);
+        });
+    });
+
+    describe('url({ port: "random" })', function () {
+        it('should return a URL with a random port', function () {
+            const url = random.internet.url({ port: 'random' });
+            expect(url).to.be.a('string');
+            expect(url).to.match(/:\d+$/);
+        });
+    });
+
+    describe('domain()', function () {
+        it('should return a fully qualified domain', function () {
+            const domain = random.internet.domain();
+            expect(domain).to.be.a('string');
+        });
+    });
+
+    describe('domain({ standard: false })', function () {
+        it('should return a domain with a non-standard TLD', function () {
+            const domain = random.internet.domain({ standard: false });
+            expect(domain).to.be.a('string');
+        });
+    });
+
+    describe('tld()', function () {
+        it('should return a top level domain', function () {
+            expect(random.internet.tld()).to.be.a('string');
+        });
+    });
 
     describe('username()', function () {
         it('should return a username', function () {
@@ -62,47 +122,23 @@ describe('Internet tests:', function() {
         });
     });
 
-    describe('mac()', function () {
-        it('should return a MAC address', function () {
-            const mac = random.internet.mac();
-            expect(mac).to.be.a('string');
-            expect(mac).to.match(/^[0-9a-f]{2}(:[0-9a-f]{2}){5}$/);
-        });
-    });
-
-    describe('mac({ separator: "-" })', function () {
-        it('should return a MAC address with dash separator', function () {
-            const mac = random.internet.mac({ separator: '-' });
-            expect(mac).to.be.a('string');
-            expect(mac).to.match(/^[0-9a-f]{2}(-[0-9a-f]{2}){5}$/);
-        });
-    });
-
-    describe('mac({ uppercase: true })', function () {
-        it('should return an uppercase MAC address', function () {
-            const mac = random.internet.mac({ uppercase: true });
-            expect(mac).to.be.a('string');
-            expect(mac).to.match(/^[0-9A-F]{2}(:[0-9A-F]{2}){5}$/);
-        });
-    });
-
-    describe('port()', function () {
-        it('should return a port number', function () {
+    describe('port() (alias)', function () {
+        it('should return a port number via alias to network.port', function () {
             const port = random.internet.port();
             expect(port).to.be.a('number');
             expect(port).to.be.within(1, 65535);
         });
     });
 
-    describe('port({ type: "common" })', function () {
-        it('should return a common port number', function () {
+    describe('port({ type: "common" }) (alias)', function () {
+        it('should return a common port number via alias', function () {
             const port = random.internet.port({ type: 'common' });
             expect(port).to.be.a('number');
         });
     });
 
-    describe('port({ type: "common", includeService: true })', function () {
-        it('should return a port object with service name', function () {
+    describe('port({ type: "common", includeService: true }) (alias)', function () {
+        it('should return a port object with service name via alias', function () {
             const result = random.internet.port({ type: 'common', includeService: true });
             expect(result).to.be.an('object');
             expect(result).to.have.property('port');

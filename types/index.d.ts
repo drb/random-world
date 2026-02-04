@@ -69,7 +69,45 @@ declare module 'random-world' {
 
     export interface UrlOptions {
         protocol?: string;
-        port?: number;
+        port?: number | 'common' | 'random';
+    }
+
+    export interface MacOptions {
+        separator?: ':' | '-';
+        uppercase?: boolean;
+    }
+
+    export interface PortOptions {
+        type?: 'common' | 'random' | 'registered' | 'dynamic';
+        includeService?: boolean;
+    }
+
+    export interface PortResult {
+        port: number;
+        service: string;
+    }
+
+    export interface UsernameOptions {
+        style?: 'adjective_noun' | 'name_number' | 'random' | 'mixed';
+        length?: number;
+    }
+
+    export interface PasswordOptions {
+        length?: number;
+        uppercase?: boolean;
+        lowercase?: boolean;
+        numbers?: boolean;
+        symbols?: boolean;
+    }
+
+    export interface HttpStatusCodeOptions {
+        type?: 'informational' | 'success' | 'redirection' | 'clientError' | 'serverError';
+        includeMessage?: boolean;
+    }
+
+    export interface HttpStatusCodeResult {
+        code: number;
+        message: string;
     }
 
     export interface DomainOptions {
@@ -140,11 +178,23 @@ declare module 'random-world' {
     }
 
     export interface Network {
+        ip(options?: IpOptions): string;
+        ipv6(options?: Record<string, unknown>): string;
+        mac(options?: MacOptions): string;
+        port(options?: PortOptions): number | PortResult;
+    }
+
+    export interface Internet {
         url(options?: UrlOptions): string;
         domain(options?: DomainOptions): string;
         tld(options?: TldOptions): string;
-        ip(options?: IpOptions): string;
-        ipv6(options?: Record<string, unknown>): string;
+        username(options?: UsernameOptions): string;
+        password(options?: PasswordOptions): string;
+        userAgent(options?: Record<string, unknown>): string;
+        port(options?: PortOptions): number | PortResult;
+        httpMethod(options?: Record<string, unknown>): string;
+        httpStatusCode(options?: HttpStatusCodeOptions): number | HttpStatusCodeResult;
+        mimeType(options?: Record<string, unknown>): string;
     }
 
     export interface Dates {
@@ -205,6 +255,7 @@ declare module 'random-world' {
         numbers: Numbers;
         strings: Strings;
         network: Network;
+        internet: Internet;
         dates: Dates;
         places: Places;
         money: Money;
@@ -243,11 +294,11 @@ declare module 'random-world' {
         ip(options?: IpOptions): string;
         /** @deprecated Use random.network.ipv6() instead */
         ipv6(options?: Record<string, unknown>): string;
-        /** @deprecated Use random.network.domain() instead */
+        /** @deprecated Use random.internet.domain() instead */
         domain(options?: DomainOptions): string;
-        /** @deprecated Use random.network.tld() instead */
+        /** @deprecated Use random.internet.tld() instead */
         tld(options?: TldOptions): string;
-        /** @deprecated Use random.network.url() instead */
+        /** @deprecated Use random.internet.url() instead */
         url(options?: UrlOptions): string;
         /** @deprecated Use random.dates.date() instead */
         date(options?: DateOptions): Date;

@@ -26,7 +26,7 @@ random.numbers.integer({ min: 1, max: 100 });  // 42
 
 // Generate network data
 random.network.ip();             // "192.168.1.45"
-random.network.domain();         // "example.com"
+random.network.mac();            // "a1:b2:c3:d4:e5:f6"
 
 // Generate UUIDs
 random.strings.uuid();           // "550e8400-e29b-41d4-a716-446655440000"
@@ -44,9 +44,9 @@ random.colors.hex();             // "#FF5733"
 random.colors.name();            // "cornflowerblue"
 
 // Generate internet data
+random.internet.url();           // "http://www.example.com"
+random.internet.domain();        // "example.com"
 random.internet.username();      // "cool_ninja42"
-random.internet.password();      // "Kj8#mNp2$qRs5tUv"
-random.internet.mac();           // "a1:b2:c3:d4:e5:f6"
 ```
 
 ### As a CLI
@@ -265,45 +265,36 @@ Generate a random IPv6 address.
 random.network.ipv6();                             // "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
 ```
 
-#### `network.domain(options)`
+#### `network.mac(options)`
 
-Generate a random domain name.
+Generate a random MAC address.
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `standard` | `boolean` | Use standard TLDs only (default: `true`) |
+| `separator` | `string` | Separator character (default: `':'`) |
+| `uppercase` | `boolean` | Use uppercase hex (default: `false`) |
 
 ```javascript
-random.network.domain();                           // "example.com"
-random.network.domain({ standard: false });        // "example.photography"
+random.network.mac();                              // "a1:b2:c3:d4:e5:f6"
+random.network.mac({ separator: '-' });            // "a1-b2-c3-d4-e5-f6"
+random.network.mac({ uppercase: true });           // "A1:B2:C3:D4:E5:F6"
 ```
 
-#### `network.url(options)`
+#### `network.port(options)`
 
-Generate a random URL.
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `protocol` | `string` | Protocol to use (default: `'http'`) |
-| `port` | `number` | Include port number |
-
-```javascript
-random.network.url();                              // "http://www.example.com"
-random.network.url({ protocol: 'https', port: 8080 }); // "https://www.example.com:8080"
-```
-
-#### `network.tld(options)`
-
-Generate a random top-level domain.
+Generate a random port number.
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `standard` | `boolean` | Standard TLDs only (default: `true`) |
-| `includeDot` | `boolean` | Include leading dot (default: `true`) |
+| `type` | `string` | Port type: `'random'`, `'common'`, `'registered'`, `'dynamic'` |
+| `includeService` | `boolean` | Return object with service name (only for `'common'`) |
 
 ```javascript
-random.network.tld();                              // ".com"
-random.network.tld({ includeDot: false });         // "org"
+random.network.port();                             // 45123
+random.network.port({ type: 'common' });           // 443
+random.network.port({ type: 'common', includeService: true }); // { port: 22, service: 'SSH' }
+random.network.port({ type: 'registered' });       // 8080
+random.network.port({ type: 'dynamic' });          // 52341
 ```
 
 ---
@@ -1017,7 +1008,51 @@ random.colors.name({ includeHex: true });          // { name: "coral", hex: "#FF
 
 ### Internet
 
-Generate random internet-related data.
+Generate random internet-related data (application layer).
+
+#### `internet.url(options)`
+
+Generate a random URL.
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `protocol` | `string` | Protocol to use (default: `'http'`) |
+| `port` | `number\|string` | Port number, `'common'` for service port, or `'random'` |
+
+```javascript
+random.internet.url();                             // "http://www.example.com"
+random.internet.url({ protocol: 'https' });        // "https://www.example.com"
+random.internet.url({ port: 8080 });               // "http://www.example.com:8080"
+random.internet.url({ port: 'common' });           // "http://www.example.com:443"
+random.internet.url({ port: 'random' });           // "http://www.example.com:52341"
+```
+
+#### `internet.domain(options)`
+
+Generate a random domain name.
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `standard` | `boolean` | Use standard TLDs only (default: `true`) |
+
+```javascript
+random.internet.domain();                          // "example.com"
+random.internet.domain({ standard: false });       // "example.photography"
+```
+
+#### `internet.tld(options)`
+
+Generate a random top-level domain.
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `standard` | `boolean` | Standard TLDs only (default: `true`) |
+| `includeDot` | `boolean` | Include leading dot (default: `true`) |
+
+```javascript
+random.internet.tld();                             // ".com"
+random.internet.tld({ includeDot: false });        // "org"
+```
 
 #### `internet.username(options)`
 
@@ -1060,34 +1095,13 @@ Generate a random browser user agent string.
 random.internet.userAgent();                       // "Mozilla/5.0 (Windows NT 10.0; Win64; x64)..."
 ```
 
-#### `internet.mac(options)`
-
-Generate a random MAC address.
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `separator` | `string` | Separator character (default: `':'`) |
-| `uppercase` | `boolean` | Uppercase hex (default: `false`) |
-
-```javascript
-random.internet.mac();                             // "a1:b2:c3:d4:e5:f6"
-random.internet.mac({ separator: '-' });           // "a1-b2-c3-d4-e5-f6"
-random.internet.mac({ uppercase: true });          // "A1:B2:C3:D4:E5:F6"
-```
-
 #### `internet.port(options)`
 
-Generate a random port number.
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `type` | `string` | `'random'`, `'common'`, `'registered'`, or `'dynamic'` |
-| `includeService` | `boolean` | Return object with service name (common only) |
+Convenience alias for `network.port()`. See [network.port](#networkportoptions) for full documentation.
 
 ```javascript
 random.internet.port();                            // 8080
 random.internet.port({ type: 'common' });          // 443
-random.internet.port({ type: 'common', includeService: true }); // { port: 22, service: "SSH" }
 ```
 
 #### `internet.httpMethod()`
