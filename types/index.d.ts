@@ -30,6 +30,10 @@ declare module 'random-world' {
     export interface NameOptions extends CharCaseOptions {
         gender?: 'male' | 'female' | 'nonbinary';
         startsWith?: string;
+        /** Frequency-weighted names for a locale. 'en-GB': working-age British names */
+        locale?: 'en-GB';
+        /** With `locale`: leave out the N most common names (each list ranked separately) */
+        skipTop?: number;
     }
 
     export interface TitleOptions {
@@ -265,6 +269,9 @@ declare module 'random-world' {
         truth: Truth;
         object: ObjectParser;
 
+        /** Replace the random source (returns [0, 1)) for every generator; no argument restores the default */
+        setRandom(fn?: () => number): void;
+
         // Deprecated direct method access
         /** @deprecated Use random.names.firstname() instead */
         firstname(options?: NameOptions): string;
@@ -329,6 +336,9 @@ declare module 'random-world' {
 
     export function generateBulk<T>(generator: () => T, count: number, options?: BulkOptions): T[];
     export function generateRecords(schema: Record<string, (() => unknown) | unknown>, count: number, options?: BulkOptions): object[];
+
+    /** Replace the random source (returns [0, 1)) for every generator; no argument restores the default */
+    export function setRandom(fn?: () => number): void;
 
     const random: RandomWorld;
     export default random;
