@@ -49,6 +49,12 @@ random.internet.domain();        // "example.com"
 random.internet.username();      // "cool_ninja42"
 ```
 
+From CommonJS (Node 20.19+ or 22.12+, which can `require()` ES modules):
+
+```javascript
+const random = require('random-world').default;
+```
+
 ### As a CLI
 
 The CLI is built-in and replaces the old `random-world-cli` package.
@@ -155,11 +161,14 @@ Generate a random first name.
 | `gender` | `string` | Limit to `'male'`, `'female'`, or `'nonbinary'` |
 | `startsWith` | `string` | Filter names starting with substring |
 | `charCase` | `string` | Transform case: `'upper'` or `'lower'` |
+| `locale` | `string` | `'en-GB'`: British names, weighted by frequency (see [Locales](#locales)) |
+| `skipTop` | `number` | With `locale`: leave out the N most common names |
 
 ```javascript
 random.names.firstname();                          // "Emma"
 random.names.firstname({ gender: 'male' });        // "James"
 random.names.firstname({ startsWith: 'Ch' });      // "Charlotte"
+random.names.firstname({ locale: 'en-GB' });       // "Claire"
 ```
 
 #### `names.lastname(options)`
@@ -170,10 +179,30 @@ Generate a random last name (surname).
 |--------|------|-------------|
 | `startsWith` | `string` | Filter names starting with substring |
 | `charCase` | `string` | Transform case: `'upper'` or `'lower'` |
+| `locale` | `string` | `'en-GB'`: British surnames, weighted by frequency |
+| `skipTop` | `number` | With `locale`: leave out the N most common surnames |
 
 ```javascript
 random.names.lastname();                           // "Johnson"
 random.names.lastname({ charCase: 'upper' });      // "WILLIAMS"
+random.names.lastname({ locale: 'en-GB' });        // "Davies"
+```
+
+#### Locales
+
+With `locale`, names come from a list ordered most-common-first and are picked by
+frequency (Zipf weighting), so "Smith" turns up far more often than "Okafor" but
+both appear. `'en-GB'` first names reflect today's working-age adults (born roughly
+1966–2001) rather than current baby-name charts. There is no separate non-binary
+list: any `gender` other than `'male'` or `'female'` picks either at even odds. An
+unknown locale throws a `ValidationError`.
+
+`skipTop` drops the N most common entries from each list before picking, for
+generated people who shouldn't share the names real ones most often have (a test
+account `sarah.smith@` is likely to be someone's actual mailbox):
+
+```javascript
+random.names.fullname({ locale: 'en-GB', skipTop: 20 });  // never "David Smith"
 ```
 
 #### `names.fullname(options)`
@@ -1237,6 +1266,23 @@ const users = generateRecords(
   50
 );
 ```
+
+## Custom Random Source
+
+Every generator draws from one source, a seeded PRNG by default. Swap it for a
+cryptographically secure one (or a fixed stub in tests) with `setRandom`:
+
+```javascript
+import random, { setRandom } from 'random-world';
+import { randomBytes } from 'crypto';
+
+setRandom(() => randomBytes(6).readUIntBE(0, 6) / 2 ** 48);  // must return [0, 1)
+random.names.fullname({ locale: 'en-GB' });
+
+setRandom();                                    // restore the default
+```
+
+`random.setRandom(fn)` does the same. The source is global to the module.
 
 ---
 

@@ -1,13 +1,15 @@
 {
   "name": "random-world",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Node.js module to generate random collections of data.",
   "type": "module",
   "main": "index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./index.js",
-      "types": "./types/index.d.ts"
+      "default": "./index.js"
     }
   },
   "bin": {
